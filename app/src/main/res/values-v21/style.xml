@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- <style name="AppTheme" parent="AppTheme.Base"/>
+        <style name="AppTheme.Base" parent="Theme.AppCompat"> -->
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/brown_600</item>
+        <item name="android:colorPrimaryDark">@color/brown_900</item>
+        <item name="android:colorAccent">@color/dark_green</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@null</item>
+        <item name="android:colorPrimary">@color/brown_600</item>
+        <item name="android:colorPrimaryDark">@color/brown_900</item>
+        <item name="android:colorAccent">@color/dark_green</item>
+    </style>
+
+    <style name="material_button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:color">@color/dark_green</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="face_button_style" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="colorButtonNormal">#3B5998</item>
+        <item name="android:drawableStart">@drawable/face_icon</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="google_button_style" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="colorButtonNormal">#dd4b39</item>
+        <item name="android:drawableStart">@drawable/google_icon</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="material_edittext" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:background">@drawable/material_edittext</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+</resources>

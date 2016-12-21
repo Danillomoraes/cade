@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cadê Meu Livro?</string>
+    <string name="menu_settings">Settings</string>
+    <string name="phone_label">Telefone: %1$s</string>
+    <string name="address_label">Endereço: %1$s</string>
+    <string name="city_label">Cidade: %1$s</string>
+    <string name="likes_label">Likes: %1$s</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

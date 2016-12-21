@@ -1,0 +1,77 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- <style name="AppTheme" parent="AppTheme.Base"/>
+        <style name="AppTheme.Base" parent="Theme.AppCompat"> -->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/brown_600</item>
+        <item name="colorPrimaryDark">@color/brown_900</item>
+        <item name="colorAccent">@color/dark_green</item>
+
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/brown_600</item>
+        <item name="colorPrimaryDark">@color/brown_900</item>
+        <item name="colorAccent">@color/dark_green</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="drawerArrowStyle">@style/Theme.Test.DrawerArrowStyle</item>
+    </style>
+
+    <style name="Theme.Test.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="AppBackgroundTheme" parent="@style/AppBaseTheme">
+        <item name="android:windowBackground">@color/brown_900</item>
+    </style>
+
+    <style name="Theme.D1NoTitleDim" parent="android:style/Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="material_button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- >-->
+    <style name="face_button_style" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="colorButtonNormal">#3B5998</item>
+        <item name="android:drawableStart">@drawable/face_icon</item>
+    </style>
+
+    <style name="google_button_style" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="colorButtonNormal">#dd4b39</item>
+        <item name="android:drawableStart">@drawable/google_icon</item>
+    </style>
+
+    <style name="material_edittext" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:background">@drawable/material_edittext</item>
+    </style>
+
+    <style name="shadow_text">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
+
+
+</resources>
