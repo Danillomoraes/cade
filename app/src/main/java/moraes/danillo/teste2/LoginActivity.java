@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity  {
     Bitmap new_bitm;
 
     //e la vamos nos
+    //segundo teste
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
