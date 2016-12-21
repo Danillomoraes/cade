@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity  {
     Bitmap bitm;
     Bitmap new_bitm;
 
-    //e la vamos nos
+    //e la vamos nos 3
     //segundo teste
 
     @Override
