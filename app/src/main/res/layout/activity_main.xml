@@ -15,34 +15,43 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:paddingLeft="16dp"
+           android:paddingRight="16dp"
+           android:orientation="vertical" >  
 
-        <ImageView
-            android:background="@android:color/transparent"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/logo_beta_branco"
-            android:layout_marginLeft="-50dp"
-            android:layout_marginRight="-50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
+            <ImageView
+                android:background="@android:color/transparent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/logo_beta_branco"
+                android:layout_marginLeft="-50dp"
+                android:layout_marginRight="-50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
 
-        <TextView
-            android:background="@android:color/transparent"
-            style="@style/shadow_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cadê Meu Livro?"
-            android:id="@+id/textView2"
-            android:gravity="center"
-            android:textSize="40dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@android:color/white"
-            android:layout_below="@+id/imageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="40dp" />
+            <TextView
+                android:background="@android:color/transparent"
+                style="@style/shadow_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cadê Meu Livro?"
+                android:id="@+id/textView2"
+                android:gravity="center"
+                android:textSize="40dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@android:color/white"
+                android:layout_below="@+id/imageView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="40dp" />
+        
+      </LinearLayout>    
+        
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,44 +61,52 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/relative_logo"
         android:layout_above="@+id/bt_signup">
+      
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:paddingLeft="16dp"
+           android:paddingRight="16dp"
+           android:orientation="vertical" >  
 
-        <EditText
-            android:id="@+id/tb_email"
-            style="@style/material_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="0dp"
-            android:drawableStart="@android:drawable/sym_action_email"
-            android:hint="Email ou Login"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            <EditText
+                android:id="@+id/tb_email"
+                style="@style/material_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="0dp"
+                android:drawableStart="@android:drawable/sym_action_email"
+                android:hint="Email ou Login"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
 
 
-        <EditText
-            android:id="@+id/tb_senha"
-            style="@style/material_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tb_email"
-            android:layout_gravity="bottom"
-            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:ems="10"
-            android:hint="Senha"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/tb_senha"
+                style="@style/material_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tb_email"
+                android:layout_gravity="bottom"
+                android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+                android:ems="10"
+                android:hint="Senha"
+                android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/bt_login"
-            style="@style/material_button"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:onClick="callactivity"
-            android:text="Login"
-            android:textAllCaps="true"
-            android:textSize="15dp"
-            android:layout_alignParentBottom="true" />
+            <Button
+                android:id="@+id/bt_login"
+                style="@style/material_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:onClick="callactivity"
+                android:text="Login"
+                android:textAllCaps="true"
+                android:textSize="15dp"
+                android:layout_alignParentBottom="true" />
 
+      </LinearLayout>
 
     </RelativeLayout>
 
@@ -102,53 +119,63 @@
         android:layout_below="@+id/relative_logo"
         android:layout_above="@+id/bt_signup"
         android:visibility="invisible">
+      
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:paddingLeft="16dp"
+           android:paddingRight="16dp"
+           android:orientation="vertical" >  
 
-        <EditText
-            style="@style/material_edittext"
-            android:id="@+id/tb_sign_nome"
-            android:hint="Nome"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            <EditText
+                style="@style/material_edittext"
+                android:id="@+id/tb_sign_nome"
+                android:hint="Nome"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
 
-        <EditText
-            style="@style/material_edittext"
-            android:hint="Email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/tb_sign_email"
-            android:layout_below="@+id/tb_sign_nome"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            <EditText
+                style="@style/material_edittext"
+                android:hint="Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/tb_sign_email"
+                android:layout_below="@+id/tb_sign_nome"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
 
-        <EditText
-            style="@style/material_edittext"
-            android:hint="Senha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/tb_sign_pass"
-            android:layout_below="@id/tb_sign_email"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            <EditText
+                style="@style/material_edittext"
+                android:hint="Senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/tb_sign_pass"
+                android:layout_below="@id/tb_sign_email"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
 
-        <EditText
-            style="@style/material_edittext"
-            android:hint="Confirmar Senha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/tb_sign_conf_pass"
-            android:layout_below="@+id/tb_sign_pass"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            <EditText
+                style="@style/material_edittext"
+                android:hint="Confirmar Senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/tb_sign_conf_pass"
+                android:layout_below="@+id/tb_sign_pass"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+        
+      </LinearLayout>
+        
     </RelativeLayout>
 
     <Button
