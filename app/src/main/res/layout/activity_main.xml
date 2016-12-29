@@ -10,7 +10,7 @@
         android:background="@android:color/transparent"
         android:id="@+id/relative_logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
@@ -30,9 +30,8 @@
                 android:src="@drawable/logo_beta_branco"
                 android:layout_marginLeft="-50dp"
                 android:layout_marginRight="-50dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center" />
 
             <TextView
                 android:background="@android:color/transparent"
@@ -46,13 +45,13 @@
                 android:textColor="@color/white"
                 android:textColorHighlight="@android:color/white"
                 android:layout_below="@+id/imageView"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="40dp" />
         
       </LinearLayout>    
         
     </RelativeLayout>
+
 
     <RelativeLayout
         android:background="@android:color/transparent"
@@ -65,9 +64,7 @@
       <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:paddingLeft="16dp"
-           android:paddingRight="16dp"
-           android:orientation="vertical" >  
+           android:orientation="vertical" >
 
             <EditText
                 android:id="@+id/tb_email"
@@ -100,6 +97,7 @@
                 style="@style/material_button"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="90dp"
                 android:onClick="callactivity"
                 android:text="Login"
                 android:textAllCaps="true"
@@ -109,6 +107,7 @@
       </LinearLayout>
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/relative_signup"
@@ -123,15 +122,13 @@
       <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:paddingLeft="16dp"
-           android:paddingRight="16dp"
            android:orientation="vertical" >  
 
             <EditText
                 style="@style/material_edittext"
                 android:id="@+id/tb_sign_nome"
                 android:hint="Nome"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:layout_alignParentStart="true"
@@ -140,7 +137,7 @@
             <EditText
                 style="@style/material_edittext"
                 android:hint="Email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
@@ -152,7 +149,7 @@
             <EditText
                 style="@style/material_edittext"
                 android:hint="Senha"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
@@ -165,7 +162,7 @@
             <EditText
                 style="@style/material_edittext"
                 android:hint="Confirmar Senha"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
