@@ -31,7 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+//import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
