@@ -37,7 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/linear"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:scrollY="170dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +78,7 @@
 
                         <Button
                             android:id="@+id/bt_sera"
-                            style="@style/material_button"
+                            android:theme="@style/material_button"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"
@@ -84,7 +86,7 @@
 
                         <Button
                             android:id="@+id/bt_sera3"
-                            style="@style/material_button"
+                            android:theme="@style/material_button"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"
@@ -124,10 +126,9 @@
                             android:text="Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto"
                             android:textColor="#000000" />
 
-                        <android.support.v7.widget.AppCompatButton
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                        <Button
+                            android:theme="@style/material_button"
                             android:id="@+id/bt_sera2"
-                            android:backgroundTint="@color/dark_green"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"
@@ -153,7 +154,11 @@
                             android:id="@+id/img3"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:src="@drawable/icon" />
+                            android:src="@drawable/icon"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginBottom="171dp" />
 
                         <TextView
                             android:id="@+id/text_view3"
@@ -165,7 +170,7 @@
                             android:textColor="#000000" />
 
                         <Button
-                            style="@style/material_button"
+                            android:theme="@style/material_button"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"

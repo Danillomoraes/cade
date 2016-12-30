@@ -94,7 +94,7 @@
 
             <Button
                 android:id="@+id/bt_login"
-                style="@style/material_button"
+                android:theme="@style/material_button"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="90dp"
@@ -197,7 +197,7 @@
 
     <Button
         android:id="@+id/bt_signup"
-        style="@style/material_button"
+        android:theme="@style/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
