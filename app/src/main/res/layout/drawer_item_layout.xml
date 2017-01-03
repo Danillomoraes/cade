@@ -16,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="240dp">
             <ImageView
+                android:id="@+id/img_capa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/doge"
                 android:scaleType="centerCrop"
                 />
             <ImageView

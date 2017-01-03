@@ -52,10 +52,13 @@ public class LoginActivity extends AppCompatActivity  {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     public ImageView img_profile = null;
+    public ImageView img_capa = null;
     private ActionBarDrawerToggle mDrawerToggle;
 
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     Bitmap bitm;
+    Bitmap bit_capa;
+    Bitmap bit;
     Bitmap new_bitm;
 
     //e la vamos nos 7
@@ -79,9 +82,16 @@ public class LoginActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
 
         img_profile = (ImageView) findViewById(R.id.img_profile);
+        img_capa = (ImageView) findViewById(R.id.img_capa);
+
         bitm = BitmapFactory.decodeResource(getResources(), R.drawable.doge);
+        bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.hobbit);
+
+        bit = Bitmap.createScaledBitmap(bit_capa, (int)(bit_capa.getWidth()*0.5), (int) (bit_capa.getHeight()*0.5), true);
+
         new_bitm = createRoundImage(bitm);
         img_profile.setImageBitmap(new_bitm);
+        img_capa.setImageBitmap(bit);
 
         mNavItems.add(new NavItem("Home","Pagina Inicial", R.drawable.ic_home_black_18dp));
         mNavItems.add(new NavItem("Profile Page","Pagina Pessoal", R.drawable.ic_account_circle_black_18dp));

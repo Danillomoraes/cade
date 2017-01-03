@@ -26,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,9 +44,10 @@ public class MainActivity extends AppCompatActivity{
         if (Build.VERSION.SDK_INT <= 17) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         }else{
-            //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
         setContentView(R.layout.activity_main);
 
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity{
         //TextView txt = (TextView) findViewById(R.id.textView2);
         Button bt = (Button) findViewById(R.id.bt_login);
         Button bt2 = (Button) findViewById(R.id.bt_signup);
-        Button bt3 = (Button) findViewById(R.id.bt_facebook);
+        Button bt3 = (Button) findViewById(R.id.bt_face);
         Button bt4 = (Button) findViewById(R.id.bt_google);
 
         //bt.setBackgroundColor(vibrant);
@@ -182,8 +184,8 @@ public class MainActivity extends AppCompatActivity{
     public void sign_form (View v) {
         Button bt = (Button) v;
         String nome = bt.getText().toString();
-        RelativeLayout lay_login = (RelativeLayout) findViewById(R.id.relative_login);
-        RelativeLayout lay_sign = (RelativeLayout) findViewById(R.id.relative_signup);
+        LinearLayout lay_login = (LinearLayout) findViewById(R.id.linear_login);
+        LinearLayout lay_sign = (LinearLayout) findViewById(R.id.linear_signup);
 
         if (nome.equals("sign up") == true) {
             lay_login.setVisibility(View.GONE);

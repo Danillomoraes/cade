@@ -21,5 +21,4 @@
             android:theme="@style/AppBackgroundTheme"></activity>
         <user-permission android:name ="android.permission.INTERNET" />
     </application>
-
 </manifest>
