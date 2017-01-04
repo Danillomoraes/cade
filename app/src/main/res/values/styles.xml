@@ -42,6 +42,7 @@
 
     <style name="material_button" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/white</item>
+        <item name="colorControlHighlight">@color/green</item>
     </style>
 
     <!-- >-->

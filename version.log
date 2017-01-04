@@ -1,4 +1,12 @@
 
+Version 0.1.1 (04/01/17)
+    #re-added background image on login page
+    #re-added back image on drawer menu
+    #added colorhighlight on buttons
+    #added almost fullscreen mode
+    *change color of button in java
+    *align google+ and facebook buttons
+    *lag on login page
 Version 0.1.0 initial build (03-01-2017)
     #Added:
     #Login page

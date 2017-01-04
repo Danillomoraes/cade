@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatButton;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,16 +37,21 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity{
 
+    public LinearLayout img_back;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         //getSupportActionBar().hide();
 
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT <= 17) {
+        if (Build.VERSION.SDK_INT >= 17) {
             getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                );
         }else{
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -65,6 +72,15 @@ public class MainActivity extends AppCompatActivity{
             int muteddark = palette.getDarkMutedColor(i_default);
         }
 
+        //getting screen resolution
+        DisplayMetrics met = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(met);
+
+        float x = (float) (met.widthPixels)/(float) (myBitmap.getWidth()) ; //getting scale to downscale
+        myBitmap = Bitmap.createScaledBitmap(myBitmap, (int)(myBitmap.getWidth()*x), (int)(myBitmap.getHeight()*x), true );
+
+        img_back = (LinearLayout) findViewById(R.id.relativelayaout);
+        img_back.setBackground(new BitmapDrawable(getResources(), myBitmap));
 
         //TextView txt = (TextView) findViewById(R.id.textView2);
         //Button bt = (Button) findViewById(R.id.bt_login);

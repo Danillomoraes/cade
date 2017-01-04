@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.View;
@@ -71,13 +72,13 @@ public class LoginActivity extends AppCompatActivity  {
         //getSupportActionBar().hide();
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if (Build.VERSION.SDK_INT <= 17) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            //getWindow().getDecorView().setSystemUiVisibility(
+              // View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+               //View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        //getWindow().setStatusBarColor(R.color.brown_900);
+            getWindow().setStatusBarColor(Color.parseColor("#3e2723"));
+        }
 
         setContentView(R.layout.activity_login);
 
@@ -87,7 +88,10 @@ public class LoginActivity extends AppCompatActivity  {
         bitm = BitmapFactory.decodeResource(getResources(), R.drawable.doge);
         bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.hobbit);
 
-        bit = Bitmap.createScaledBitmap(bit_capa, (int)(bit_capa.getWidth()*0.5), (int) (bit_capa.getHeight()*0.5), true);
+
+        float x = 320f/(float) (bit_capa.getWidth()); //calculo para scale
+
+        bit = Bitmap.createScaledBitmap(bit_capa, (int)(bit_capa.getWidth()*x), (int) (bit_capa.getHeight()*x), true);
 
         new_bitm = createRoundImage(bitm);
         img_profile.setImageBitmap(new_bitm);
@@ -209,7 +213,8 @@ public class LoginActivity extends AppCompatActivity  {
     public void colors(View v) {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Button bt = (Button) findViewById(R.id.bt_sera);
+        //Button bt = (Button) findViewById(R.id.bt_sera);
+        AppCompatButton bt = (AppCompatButton) findViewById(R.id.bt_sera);
         Button bt2 = (Button) findViewById(R.id.bt_sera3);
         Palette palette;
         Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
@@ -270,8 +275,9 @@ public class LoginActivity extends AppCompatActivity  {
 
         setStatusAndActionBarColor(cor[i]);
 
-        bt.setBackgroundColor(cor[i]);
+        //bt.setBackgroundColor(cor[i]);
         bt2.setBackgroundColor(statuscolor);
+        bt.setSupportBackgroundTintList(getResources().getColorStateList(R.color.blue_grey));
 
         i+=1;
     }
@@ -315,9 +321,9 @@ public class LoginActivity extends AppCompatActivity  {
         Color.colorToHSV(color, h);
 
         if (h[2] >= 0.8f) {
-            h[2] = h[2] - 0.2f;
+            h[2] = h[2] - 0.1f;
         } else {
-            h[2] = h[2] + 0.2f;
+            h[2] = h[2] + 0.1f;
         }
 
         new_color = Color.HSVToColor(h);

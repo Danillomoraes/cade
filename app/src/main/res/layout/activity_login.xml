@@ -76,7 +76,7 @@
                             android:textColor="#000000"
                             android:background="@color/white"/>
 
-                        <Button
+                        <android.support.v7.widget.AppCompatButton
                             android:id="@+id/bt_sera"
                             android:theme="@style/material_button"
                             android:layout_width="100dp"
