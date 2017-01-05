@@ -67,7 +67,7 @@ public class Activity_login extends AppCompatActivity{
             int muteddark = palette.getDarkMutedColor(i_default);
         }
 
-        back = new int[7];
+        back = new int[8];
 
         back[0] = R.drawable.image_book_background;
         back[1] = R.drawable.image_books;
@@ -183,8 +183,20 @@ public class Activity_login extends AppCompatActivity{
         DisplayMetrics met = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(met);
 
-        float x = (float) (met.widthPixels)/(float) (bit_back.getWidth()) ; //getting scale to downscale
-        bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*x), (int)(bit_back.getHeight()*x), true );
+        float x = (float) (met.widthPixels)/(float) (bit_back.getWidth()) ; //getting scale x to downscale
+        float y = (float) (met.heightPixels)/(float) (bit_back.getHeight()); //gettin scale y to downscale
+        float z;
+
+        if (bit_back.getHeight() > bit_back.getWidth()) {
+
+            z = y;
+
+        } else {
+
+            z = x;
+        }
+
+        bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
 
         //img_background.setImageBitmap(bit_back);
         rela.setBackground(new BitmapDrawable(bit_back));
