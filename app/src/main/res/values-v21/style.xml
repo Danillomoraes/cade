@@ -37,14 +37,16 @@
     <style name="face_button_style" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/white</item>
         <item name="colorButtonNormal">#3B5998</item>
-        <item name="android:drawableStart">@drawable/face_icon</item>
+        <item name="android:colorControlHighlight">@color/blue</item>
+        <item name="android:drawableStart">@drawable/icon_face</item>
         <item name="android:elevation">2dp</item>
     </style>
 
     <style name="google_button_style" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/white</item>
         <item name="colorButtonNormal">#dd4b39</item>
-        <item name="android:drawableStart">@drawable/google_icon</item>
+        <item name="android:colorControlHighlight">@color/white</item>
+        <item name="android:drawableStart">@drawable/icon_google_icon</item>
         <item name="android:elevation">2dp</item>
     </style>
 
@@ -53,7 +55,7 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:drawablePadding">2dp</item>
-        <item name="android:background">@drawable/material_edittext</item>
+        <item name="android:background">@drawable/drawble_material_edittext</item>
         <item name="android:elevation">2dp</item>
     </style>
 </resources>

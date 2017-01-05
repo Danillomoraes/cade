@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/google_lg"
-        android:drawable="@drawable/googlelogo"
+        android:drawable="@drawable/icon_googlelogo"
         android:width="40dp"
         android:height="30dp"
         />

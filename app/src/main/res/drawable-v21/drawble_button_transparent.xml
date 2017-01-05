@@ -18,6 +18,6 @@
         </shape>
     </item>
     <ripple android:color="?android:colorControlHighlight">
-        <item android:drawable="@drawable/button_transparent"/>
+        <item android:drawable="@drawable/drawble_button_transparent"/>
     </ripple>
 </layer-list>

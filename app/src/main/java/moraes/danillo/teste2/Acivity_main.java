@@ -6,49 +6,31 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.Shader;
-import android.graphics.drawable.Icon;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 //import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONObject;
-import org.json.JSONException;
 
 
-
-public class LoginActivity extends AppCompatActivity  {
+public class Acivity_main extends AppCompatActivity  {
     int i = 0;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -80,13 +62,13 @@ public class LoginActivity extends AppCompatActivity  {
             getWindow().setStatusBarColor(Color.parseColor("#3e2723"));
         }
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
         img_profile = (ImageView) findViewById(R.id.img_profile);
         img_capa = (ImageView) findViewById(R.id.img_capa);
 
-        bitm = BitmapFactory.decodeResource(getResources(), R.drawable.doge);
-        bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.hobbit);
+        bitm = BitmapFactory.decodeResource(getResources(), R.drawable.image_doge);
+        bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.image_hobbit);
 
 
         float x = 320f/(float) (bit_capa.getWidth()); //calculo para scale

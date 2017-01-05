@@ -4,6 +4,7 @@ Version 0.1.1 (04/01/17)
     #re-added back image on drawer menu
     #added colorhighlight on buttons
     #added almost fullscreen mode
+    *change layout and java file names
     *change color of button in java
     *align google+ and facebook buttons
     *lag on login page
