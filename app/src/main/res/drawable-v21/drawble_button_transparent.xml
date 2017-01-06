@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:drawable/dialog_holo_dark_frame"
-        android:left="-4.6dp"
-        android:right="-4.0dp"
-        android:top="-1.8dp"
-        android:bottom="-1.8dp"/>
-
-    <item android:left="-4.6dp"
-        android:right="-4.0dp"
-        android:top="-1.8dp"
-        android:bottom="-1.8dp">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/dark_green" />
-            <stroke android:color="@color/dark_green"
+            <solid android:color="@android:color/transparent" />
+            <stroke android:color="@color/white"
                 android:width="2dp"/>
-            <corners android:radius="2dp" />
+            <corners android:radius="7dp" />
         </shape>
     </item>
-    <ripple android:color="?android:colorControlHighlight">
-        <item android:drawable="@drawable/drawble_button_transparent"/>
-    </ripple>
-</layer-list>
+</selector>

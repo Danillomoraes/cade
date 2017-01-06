@@ -9,6 +9,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -21,14 +25,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Activity_login extends AppCompatActivity{
 
@@ -111,6 +113,9 @@ public class Activity_login extends AppCompatActivity{
     protected void onStart () {
         super.onStart();
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            i = ThreadLocalRandom.current().nextInt(0, 7 + 1);
+        }
         try {
             if (i > 7) {
                 i = 0;
@@ -173,8 +178,9 @@ public class Activity_login extends AppCompatActivity{
 
     public void change_background (int r) {
         Bitmap bit_back;
+        Bitmap bit_blur;
 
-        //img_background = (ImageView) findViewById(R.id.img_background);
+        img_background = (ImageView) findViewById(R.id.img_background);
         RelativeLayout rela = (RelativeLayout) findViewById(R.id.relativelayaout);
 
         bit_back = BitmapFactory.decodeResource(getResources(), r);
@@ -197,9 +203,12 @@ public class Activity_login extends AppCompatActivity{
         }
 
         bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
+        bit_blur = getBlur(bit_back, 7);
 
-        //img_background.setImageBitmap(bit_back);
-        rela.setBackground(new BitmapDrawable(bit_back));
+
+        img_background.setImageBitmap(bit_blur);
+        img_background.setAlpha(0.7f);
+        //rela.setBackground(new BitmapDrawable(bit_back));
     }
 
     public void teste_cor (View v) {
@@ -299,5 +308,22 @@ public class Activity_login extends AppCompatActivity{
         }
         catch (IOException e) {}
 
+    }
+
+    public Bitmap getBlur (Bitmap in, float radius) { //method to set blur image
+        Bitmap out;
+
+        out = Bitmap.createBitmap(in);
+        final RenderScript render = RenderScript.create(this);
+        Allocation tmpIn = Allocation.createFromBitmap(render, in);
+        Allocation tmpOut = Allocation.createFromBitmap(render, out);
+
+        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(render, Element.U8_4(render));
+        theIntrinsic.setRadius(radius);
+        theIntrinsic.setInput(tmpIn);
+        theIntrinsic.forEach(tmpOut);
+        tmpOut.copyTo(out);
+
+        return out;
     }
 }

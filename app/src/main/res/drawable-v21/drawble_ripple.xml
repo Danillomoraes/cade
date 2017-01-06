@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/dark_green">
-    <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <corners android:radius="1dp" />
-            <solid android:color="@color/brown_600" />
-        </shape>
+    android:color="@color/green">
+    <item android:id="@android:id/mask"
+          android:drawable="@drawable/drawble_button_transparent">
+    </item>
+    <item
+        android:drawable="@drawable/drawble_button_transparent">
     </item>
 </ripple>

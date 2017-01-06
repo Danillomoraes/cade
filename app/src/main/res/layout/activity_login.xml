@@ -7,7 +7,9 @@
     <ImageView
         android:id="@+id/img_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,11 +78,9 @@
             <EditText
                     style="@style/material_edittext"
                     android:drawableStart="@android:drawable/sym_action_email"
-                    android:drawablePadding="10dp"
                     android:id="@+id/tb_email"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="0dp"
                     android:hint="Email ou Login"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/white"
@@ -91,7 +91,6 @@
                     style="@style/material_edittext"
                     android:id="@+id/tb_senha"
                     android:drawableStart="@android:drawable/ic_lock_idle_lock"
-                    android:drawablePadding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="bottom"
@@ -105,7 +104,7 @@
 
                     <Button
                         android:id="@+id/bt_login"
-                        android:theme="@style/material_button"
+                        style="@style/transparent_button"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:onClick="callactivity"
@@ -167,7 +166,7 @@
 
     <Button
         android:id="@+id/bt_signup"
-        android:theme="@style/material_button"
+        style="@style/transparent_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:onClick="sign_form"
