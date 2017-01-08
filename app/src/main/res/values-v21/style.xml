@@ -7,7 +7,7 @@
         <item name="android:colorPrimary">@color/brown_600</item>
         <item name="android:colorPrimaryDark">@color/brown_900</item>
         <item name="android:colorAccent">@color/dark_green</item>
-        <item name="android:colorControlHighlight">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
         <item name="android:statusBarColor">@color/brown_900</item>
         <item name="android:navigationBarColor">@color/brown_900</item>
         <item name="android:windowTranslucentStatus">true</item>

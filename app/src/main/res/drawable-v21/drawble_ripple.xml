@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/green">
-    <item android:id="@android:id/mask"
-          android:drawable="@drawable/drawble_button_transparent">
+    android:color="?attr/colorControlHighlight">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <stroke android:color="@color/white"
+                android:width="2dp"/>
+            <corners android:radius="7dp" />
+        </shape>
     </item>
     <item
         android:drawable="@drawable/drawble_button_transparent">

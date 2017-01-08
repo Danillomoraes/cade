@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/brown_600</item>
         <item name="colorPrimaryDark">@color/brown_900</item>
         <item name="colorAccent">@color/dark_green</item>
-
+        <item name="colorControlHighlight">@color/alpha_white</item>
     </style>
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -42,7 +42,6 @@
 
     <style name="material_button" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/white</item>
-        <item name="colorControlHighlight">@color/green</item>
     </style>
 
     <!-- >-->
@@ -62,8 +61,17 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:drawablePadding">2dp</item>
-        <item name="android:background">@drawable/drawble_material_edittext</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/drawble_edittext_transparent</item>
+    </style>
+
+    <style name="transparent_button">
+        <item name="android:textColor">@color/white</item>
+        <item name="elevation">5dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/drawble_button_transparent</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 
     <style name="shadow_text">
