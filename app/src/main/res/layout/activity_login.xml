@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/statusBarHeight"
+        android:paddingBottom="50dp"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_vertical_margin">
 
@@ -22,7 +22,7 @@
         android:background="@android:color/transparent"
         android:id="@+id/linear_logo"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="wrap_content">
 
       <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
            android:layout_width="match_parent"
@@ -35,12 +35,16 @@
                 android:background="@android:color/transparent"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/imageView"
+                android:id="@+id/img_logo"
                 android:src="@drawable/icon_logo_beta_branco"
                 android:layout_marginLeft="-50dp"
                 android:layout_marginRight="-50dp"
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/textView2">
 
             <TextView
                 android:background="@android:color/transparent"
@@ -48,14 +52,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Cadê Meu Livro?"
-                android:id="@+id/textView2"
                 android:gravity="center"
                 android:textSize="40dp"
                 android:textColor="@color/white"
                 android:textColorHighlight="@android:color/white"
                 android:layout_below="@+id/imageView"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginBottom="0dp"/>
+
+          </LinearLayout>
         
       </LinearLayout>    
         
@@ -63,7 +67,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="240dp"
         android:id="@+id/relative_sign_signup"
         android:orientation="horizontal"
         android:layout_below="@+id/linear_logo">
@@ -72,47 +76,31 @@
             android:background="@android:color/transparent"
             android:id="@+id/linear_login"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:orientation="vertical">
 
             <EditText
                     style="@style/material_edittext"
-                    android:drawableStart="@android:drawable/sym_action_email"
+                    android:drawableStart="@drawable/icon_mail"
                     android:id="@+id/tb_email"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:hint="Email ou Login"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
 
 
-                <EditText
+            <EditText
                     style="@style/material_edittext"
                     android:id="@+id/tb_senha"
-                    android:drawableStart="@android:drawable/ic_lock_idle_lock"
+                    android:drawableStart="@drawable/icon_lock"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="bottom"
                     android:ems="10"
                     android:hint="Senha"
                     android:inputType="textPassword" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/bt_login"
-                        style="@style/transparent_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:onClick="callactivity"
-                        android:text="Login"
-                        android:textAllCaps="true"
-                        android:textSize="15dp"
-                        android:layout_alignParentBottom="true"/>
-                </RelativeLayout>
 
         </LinearLayout>
 
@@ -120,23 +108,25 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/linear_signup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="invisible"
+            android:alpha="0"
+            android:layout_marginTop="0dp">
 
             <EditText
                 style="@style/material_edittext"
                 android:id="@+id/tb_sign_nome"
                 android:hint="Nome"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textPersonName" />
 
             <EditText
                 style="@style/material_edittext"
                 android:hint="Email"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/tb_sign_email" />
@@ -145,7 +135,7 @@
                 style="@style/material_edittext"
                 android:hint="Senha"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/tb_sign_pass" />
@@ -154,7 +144,7 @@
                 style="@style/material_edittext"
                 android:hint="Confirmar Senha"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/tb_sign_conf_pass"/>
@@ -164,48 +154,72 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/bt_signup"
-        style="@style/transparent_button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:onClick="sign_form"
-        android:text="sign up"
-        android:layout_below="@+id/relative_sign_signup"/>
 
     <RelativeLayout
+        android:id="@+id/rela_bottom"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/bt_signup">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_sign_signup">
 
         <Button
-            android:theme="@style/google_button_style"
-            android:id="@+id/bt_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/center_view"
-            android:layout_alignParentStart="true"
-            android:text="Google+"/>
-
-        <TextView
-            android:id="@+id/center_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:id="@+id/bt_login"
+            style="@style/transparent_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="callactivity"
+            android:text="Login"
+            android:textAllCaps="true"
+            android:textSize="15dp"
+            android:layout_alignParentTop="true"/>
 
         <Button
-            android:theme="@style/face_button_style"
-            android:id="@+id/bt_face"
+            android:id="@+id/bt_signup"
+            style="@style/transparent_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="sign_form"
+            android:layout_below="@id/bt_login"
+            android:text="sign up" />
+
+        <RelativeLayout
+            android:id="@+id/rela_google"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Facebook"
-            android:layout_toEndOf="@+id/center_view"
-            android:layout_alignParentEnd="true"/>
+            android:layout_height="150dp"
+            android:layout_below="@+id/bt_signup">
+
+            <Button
+                android:theme="@style/google_button_style"
+                android:id="@+id/bt_google"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_toStartOf="@+id/center_view"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="Google+"/>
+
+            <TextView
+                android:id="@+id/center_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:theme="@style/face_button_style"
+                android:id="@+id/bt_face"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Facebook"
+                android:layout_toEndOf="@+id/center_view"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
 
         </RelativeLayout>
+
 
     </RelativeLayout>
 
 
-</RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>

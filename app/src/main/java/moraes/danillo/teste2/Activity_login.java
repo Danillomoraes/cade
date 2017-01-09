@@ -1,11 +1,11 @@
 package moraes.danillo.teste2;
 
-import android.content.Context;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +31,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.ThreadLocalRandom;
+
+//import com.lgvalle.material_animations.databinding.ActivityTransition2Binding;
 
 public class Activity_login extends AppCompatActivity{
 
@@ -272,23 +274,40 @@ public class Activity_login extends AppCompatActivity{
         String nome = bt.getText().toString();
         LinearLayout lay_login = (LinearLayout) findViewById(R.id.linear_login);
         LinearLayout lay_sign = (LinearLayout) findViewById(R.id.linear_signup);
+        RelativeLayout rela_google = (RelativeLayout) findViewById(R.id.rela_google);
+        AnimatorSet set;
+        Button bt_face = (Button) findViewById(R.id.bt_face);
+        Button bt_google = (Button) findViewById(R.id.bt_google);
+        Button bt_login = (Button) findViewById(R.id.bt_login);
 
         if (nome.equals("sign up") == true) {
+            set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext() , R.animator.animate_down_fadeout);
+            lay_login.animate().alpha(0);
             lay_login.setVisibility(View.GONE);
+            bt.animate().y(300f);
+            bt_login.animate().y(150f);
+            rela_google.animate().alpha(0);
+            rela_google.setVisibility(View.GONE);
             lay_sign.setVisibility(View.VISIBLE);
-            bt.setText("back");
-        }else if (nome.equals("back") == true) {
+            lay_sign.animate().alpha(1);
+            bt.setText("Voltar");
+        }else if (nome.equals("Voltar") == true) {
+            lay_sign.animate().alpha(0);
             lay_sign.setVisibility(View.GONE);
             lay_login.setVisibility(View.VISIBLE);
+            lay_login.animate().alpha(1);
             bt.setText("sign up");
+            bt.animate().y(150f);
+            bt_login.animate().y(0f);
+            rela_google.animate().setDuration(200);
+            rela_google.setY(300f);
+            rela_google.setVisibility(View.VISIBLE);
+            rela_google.animate().alpha(1);
         }
 
         if (i>7) {
             i=0;
         }
-
-        change_background(back[i]);
-        i+=1;
 
     }
 
