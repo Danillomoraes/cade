@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_home"
+            android:checkable="false"
+            android:icon="@drawable/ic_home_black_18dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/item_profile"
+            android:checkable="false"
+            android:icon="@drawable/ic_account_circle_black_18dp"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/item_Mapas"
+            android:checkable="false"
+            android:icon="@drawable/ic_explore_black_18dp"
+            android:title="Mapas" />
+        <item
+            android:id="@+id/item_chat"
+            android:checkable="false"
+            android:icon="@drawable/ic_chat_black_18dp"
+            android:title="Conversas" />
+        <item
+            android:id="@+id/item_settings"
+            android:checkable="false"
+            android:icon="@drawable/ic_settings_black_18dp"
+            android:title="Configurações" />
+    </group>
+</menu>

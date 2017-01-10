@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+        <ImageView
+            android:id="@+id/img_capa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_above="@+id/text_nome"
+            android:layout_marginStart="16dp"
+            />
+        <TextView
+            style="@style/shadow_text"
+            android:id="@+id/text_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_above="@+id/text_email"
+            android:fontFamily="sans-serif-medium"
+            android:text="Danillo Moraes"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <TextView
+            style="@style/shadow_text"
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif"
+            android:text="danillo.moraes@outlook.com"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

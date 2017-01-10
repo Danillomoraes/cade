@@ -47,10 +47,10 @@ public class Activity_login extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= 17) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                );
+            //getWindow().getDecorView().setSystemUiVisibility(
+                //View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                //View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                //);
         }else{
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -291,6 +291,8 @@ public class Activity_login extends AppCompatActivity{
             lay_sign.setVisibility(View.VISIBLE);
             lay_sign.animate().alpha(1);
             bt.setText("Voltar");
+            bt_login.setText("Cadastrar");
+
         }else if (nome.equals("Voltar") == true) {
             lay_sign.animate().alpha(0);
             lay_sign.setVisibility(View.GONE);
@@ -298,6 +300,7 @@ public class Activity_login extends AppCompatActivity{
             lay_login.animate().alpha(1);
             bt.setText("sign up");
             bt.animate().y(150f);
+            bt_login.setText("Logar");
             bt_login.animate().y(0f);
             rela_google.animate().setDuration(200);
             rela_google.setY(300f);

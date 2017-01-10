@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.os.Build;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +16,13 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 //import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -37,6 +41,7 @@ public class Acivity_main extends AppCompatActivity  {
     public ImageView img_profile = null;
     public ImageView img_capa = null;
     private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView navigate;
 
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     Bitmap bitm;
@@ -51,15 +56,12 @@ public class Acivity_main extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //getSupportActionBar().hide();
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         if (Build.VERSION.SDK_INT >= 21) {
             //getWindow().getDecorView().setSystemUiVisibility(
               // View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
                //View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-
-            getWindow().setStatusBarColor(Color.parseColor("#3e2723"));
+            Window window = getWindow();
+            window.setStatusBarColor(Color.parseColor("#000000"));
         }
 
         setContentView(R.layout.activity_main);
@@ -79,6 +81,7 @@ public class Acivity_main extends AppCompatActivity  {
         img_profile.setImageBitmap(new_bitm);
         img_capa.setImageBitmap(bit);
 
+        /*
         mNavItems.add(new NavItem("Home","Pagina Inicial", R.drawable.ic_home_black_18dp));
         mNavItems.add(new NavItem("Profile Page","Pagina Pessoal", R.drawable.ic_account_circle_black_18dp));
         mNavItems.add(new NavItem("Mapas","Procure Livros Pelo Mapa", R.drawable.ic_explore_black_18dp));
@@ -86,23 +89,69 @@ public class Acivity_main extends AppCompatActivity  {
         mNavItems.add(new NavItem("Configurações","Configurações do App", R.drawable.ic_settings_black_18dp));
 
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         DrawerListAdapter adapter = new DrawerListAdapter (this, mNavItems);
         mDrawerList.setAdapter(adapter);
 
+
+
+        */
+
+        navigate = (NavigationView) findViewById(R.id.nav_view);
+
+        navigate.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if(menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                mDrawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()){
+
+                    // For rest of the options we just show a toast on click
+
+                    case R.id.item_home:
+                        Toast.makeText(getApplicationContext(),"Home",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.item_chat:
+                        Toast.makeText(getApplicationContext(),"Conversas",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.item_Mapas:
+                        Toast.makeText(getApplicationContext(),"Mapas", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.item_profile:
+                        Toast.makeText(getApplicationContext(),"Profile Page",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.item_settings:
+                        Toast.makeText(getApplicationContext(),"Configurações",Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                        return true;
+
+                }
+            }
+        });
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mDrawerToggle = new ActionBarDrawerToggle (this, mDrawerLayout, toolbar, R.string.app_name, R.string.hello_world) {
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 //getActionBar().setTitle("Cade meu Livro?");
                 //vamos ver
             }
 
-            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 //getActionBar().setTitle("Não sei");
@@ -115,6 +164,7 @@ public class Acivity_main extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         Button bt = (Button) findViewById(R.id.bt_sera2);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +172,7 @@ public class Acivity_main extends AppCompatActivity  {
                 colors(v);
             }
         });
+
 
 
         //mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -272,28 +323,23 @@ public class Acivity_main extends AppCompatActivity  {
 
         Color.colorToHSV(color, h);
 
-        if (h[2] >= 0.8f) {
+        if (h[2] >= 0.7f) {
             light_color = color;
-            h[2] = h[2] - 0.2f;
+            h[2] = h[2] - 0.1f;
             dark_color = Color.HSVToColor(h);
         } else {
             dark_color = color;
-            h[2] = h[2] + 0.2f;
+            h[2] = h[2] + 0.1f;
             light_color = Color.HSVToColor(h);
         }
 
         toolbar.setBackgroundColor(light_color);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(dark_color);
-            View status = (View) findViewById(R.id.status_bar);
-            status.setBackgroundColor(dark_color);
-        }else {
+            }else {
             getWindow().getDecorView().setBackgroundColor(light_color);
-            View status = (View) findViewById(R.id.status_bar);
-            status.setBackgroundColor(light_color);
-        }
-
+            }
     }
 
     public int dark (int color) {
