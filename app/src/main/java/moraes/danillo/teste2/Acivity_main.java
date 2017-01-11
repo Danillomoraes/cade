@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -14,11 +15,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,11 +60,12 @@ public class Acivity_main extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            //getWindow().getDecorView().setSystemUiVisibility(
-              // View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-               //View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            Window window = getWindow();
-            window.setStatusBarColor(Color.parseColor("#000000"));
+             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); // Transparent Statusbar API>=19
+             /*  getWindow().getDecorView().setSystemUiVisibility( //set status bar transparent
+               View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+               View.SYSTEM_UI_FLAG_LAYOUT_STABLE);*/
+            /*Window w = getWindow(); // in Activity's onCreate() for instance */
+            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
         setContentView(R.layout.activity_main);
@@ -326,6 +330,7 @@ public class Acivity_main extends AppCompatActivity  {
 
     public void setStatusAndActionBarColor (int color) {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        View status = (View) findViewById(R.id.status);
         int light_color;
         int dark_color;
         float h[] = new float[3];
@@ -343,6 +348,7 @@ public class Acivity_main extends AppCompatActivity  {
         }
 
         toolbar.setBackgroundColor(light_color);
+        status.setBackgroundColor(dark_color);
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(dark_color);

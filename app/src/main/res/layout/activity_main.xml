@@ -5,19 +5,25 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false">
+
+
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/brown_900">
+            android:background="@color/brown_900"
+            android:fitsSystemWindows="false">
+
+            <include layout="@layout/status_bar"
+                     android:id="@+id/status"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -25,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/brown_600"
                 app:titleTextColor = "@color/white"
-                android:elevation="2dp" />
+                app:elevation="2dp" />
 
         </LinearLayout>
 
@@ -33,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/linear"
-            android:fillViewport="true"
             android:fitsSystemWindows="false"
             >
 
