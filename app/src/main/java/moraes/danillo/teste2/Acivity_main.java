@@ -38,8 +38,8 @@ public class Acivity_main extends AppCompatActivity  {
     int i = 0;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    public ImageView img_profile = null;
-    public ImageView img_capa = null;
+    public ImageView img_profile;
+    public ImageView img_capa;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView navigate;
 
@@ -66,8 +66,12 @@ public class Acivity_main extends AppCompatActivity  {
 
         setContentView(R.layout.activity_main);
 
-        img_profile = (ImageView) findViewById(R.id.img_profile);
-        img_capa = (ImageView) findViewById(R.id.img_capa);
+        navigate = (NavigationView) findViewById(R.id.nav_view);
+
+        View h = navigate.getHeaderView(0);
+
+        img_profile = (ImageView) h.findViewById(R.id.img_foto);
+        img_capa = (ImageView) h.findViewById(R.id.img_back);
 
         bitm = BitmapFactory.decodeResource(getResources(), R.drawable.image_doge);
         bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.image_hobbit);
@@ -80,24 +84,6 @@ public class Acivity_main extends AppCompatActivity  {
         new_bitm = createRoundImage(bitm);
         img_profile.setImageBitmap(new_bitm);
         img_capa.setImageBitmap(bit);
-
-        /*
-        mNavItems.add(new NavItem("Home","Pagina Inicial", R.drawable.ic_home_black_18dp));
-        mNavItems.add(new NavItem("Profile Page","Pagina Pessoal", R.drawable.ic_account_circle_black_18dp));
-        mNavItems.add(new NavItem("Mapas","Procure Livros Pelo Mapa", R.drawable.ic_explore_black_18dp));
-        mNavItems.add(new NavItem("Conversas","Paginas de Chat", R.drawable.ic_chat_black_18dp));
-        mNavItems.add(new NavItem("Configurações","Configurações do App", R.drawable.ic_settings_black_18dp));
-
-
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        DrawerListAdapter adapter = new DrawerListAdapter (this, mNavItems);
-        mDrawerList.setAdapter(adapter);
-
-
-
-        */
-
-        navigate = (NavigationView) findViewById(R.id.nav_view);
 
         navigate.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -164,6 +150,22 @@ public class Acivity_main extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        /*
+        mNavItems.add(new NavItem("Home","Pagina Inicial", R.drawable.ic_home_black_18dp));
+        mNavItems.add(new NavItem("Profile Page","Pagina Pessoal", R.drawable.ic_account_circle_black_18dp));
+        mNavItems.add(new NavItem("Mapas","Procure Livros Pelo Mapa", R.drawable.ic_explore_black_18dp));
+        mNavItems.add(new NavItem("Conversas","Paginas de Chat", R.drawable.ic_chat_black_18dp));
+        mNavItems.add(new NavItem("Configurações","Configurações do App", R.drawable.ic_settings_black_18dp));
+
+
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        DrawerListAdapter adapter = new DrawerListAdapter (this, mNavItems);
+        mDrawerList.setAdapter(adapter);
+
+
+
+        */
+
 
         Button bt = (Button) findViewById(R.id.bt_sera2);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -226,6 +228,13 @@ public class Acivity_main extends AppCompatActivity  {
             //e.printStackTrace();
         //}
 
+
+    }
+
+    private void onStart (View v) {
+        super.onStart();
+
+        //View h = navigate.findViewById(R.id.nav_view);
 
     }
 

@@ -10,7 +10,8 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/linear"
             android:fillViewport="true"
-            android:scrollY="170dp"
+            android:fitsSystemWindows="false"
             >
 
             <LinearLayout
@@ -200,7 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/menu_drawer" />
+        app:menu="@menu/menu_drawer"
+        app:headerLayout="@layout/drawer_header"/>
 
 </android.support.v4.widget.DrawerLayout>

@@ -6,17 +6,19 @@
         android:layout_width="match_parent"
         android:layout_height="240dp">
         <ImageView
-            android:id="@+id/img_capa"
+            android:id="@+id/img_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:src="@color/blue"
             />
         <ImageView
-            android:id="@+id/img_profile"
+            android:id="@+id/img_foto"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_above="@+id/text_nome"
             android:layout_marginStart="16dp"
+            android:src="@color/amber"
             />
         <TextView
             style="@style/shadow_text"
