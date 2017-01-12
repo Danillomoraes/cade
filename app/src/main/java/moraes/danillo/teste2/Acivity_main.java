@@ -60,13 +60,12 @@ public class Acivity_main extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= 21) {
-             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); // Transparent Statusbar API>=19
-             /*  getWindow().getDecorView().setSystemUiVisibility( //set status bar transparent
-               View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-               View.SYSTEM_UI_FLAG_LAYOUT_STABLE);*/
-            /*Window w = getWindow(); // in Activity's onCreate() for instance */
-            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            /*Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS); */
         }
+
+
 
         setContentView(R.layout.activity_main);
 
@@ -76,7 +75,9 @@ public class Acivity_main extends AppCompatActivity  {
 
         img_profile = (ImageView) h.findViewById(R.id.img_foto);
         img_capa = (ImageView) h.findViewById(R.id.img_back);
+        View s = (View) h.findViewById(R.id.status_view);
 
+        s.setBackgroundColor(getResources().getColor(R.color.aplha_black));
         bitm = BitmapFactory.decodeResource(getResources(), R.drawable.image_doge);
         bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.image_hobbit);
 
@@ -330,7 +331,7 @@ public class Acivity_main extends AppCompatActivity  {
 
     public void setStatusAndActionBarColor (int color) {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        View status = (View) findViewById(R.id.status);
+        //View status = (View) findViewById(R.id.status);
         int light_color;
         int dark_color;
         float h[] = new float[3];
@@ -348,7 +349,7 @@ public class Acivity_main extends AppCompatActivity  {
         }
 
         toolbar.setBackgroundColor(light_color);
-        status.setBackgroundColor(dark_color);
+        //status.setBackgroundColor(dark_color);
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(dark_color);

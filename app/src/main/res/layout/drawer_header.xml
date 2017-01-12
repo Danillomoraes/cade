@@ -5,6 +5,13 @@
         android:id="@+id/relative_header"
         android:layout_width="match_parent"
         android:layout_height="240dp">
+
+        <View xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+            android:id="@+id/status_view"
+            android:layout_height="@dimen/statusBarHeight"
+            android:background="#2f000000">
+        </View>
+
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="match_parent"

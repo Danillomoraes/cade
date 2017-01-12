@@ -5,13 +5,14 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
+
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false">
+        android:fitsSystemWindows="true">
 
 
         <LinearLayout
@@ -19,11 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/brown_900"
-            android:fitsSystemWindows="false">
+            android:background="@color/brown_900">
 
-            <include layout="@layout/status_bar"
-                     android:id="@+id/status"/>
+           <!-- <include layout="@layout/status_bar"
+                android:id="@+id/status"/> -->
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -206,6 +206,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fitsSystemWindows="false"
         app:menu="@menu/menu_drawer"
         app:headerLayout="@layout/drawer_header"/>
 

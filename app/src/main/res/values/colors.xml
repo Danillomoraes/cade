@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="aplha_black">#2f000000</color>
     <color name ="white">#FFFFFF</color>
     <color name="alpha_white">#5fffffff</color>
     <color name="red">#F6402C</color>
