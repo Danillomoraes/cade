@@ -4,29 +4,30 @@
     <RelativeLayout
         android:id="@+id/relative_header"
         android:layout_width="match_parent"
-        android:layout_height="240dp">
-
-        <View xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-            android:id="@+id/status_view"
-            android:layout_height="@dimen/statusBarHeight"
-            android:background="#2f000000">
-        </View>
+        android:layout_height="175dp">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@color/blue"
+            android:src="@color/blue_grey"
             />
         <ImageView
             android:id="@+id/img_foto"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_above="@+id/text_nome"
+            android:layout_above="@+id/relative_subtitle"
             android:layout_marginStart="16dp"
             android:src="@color/amber"
             />
+        <RelativeLayout
+            android:id="@+id/relative_subtitle"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true">
+        
         <TextView
             style="@style/shadow_text"
             android:id="@+id/text_nome"
@@ -37,18 +38,22 @@
             android:fontFamily="sans-serif-medium"
             android:text="Danillo Moraes"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="14sp"
+            android:gravity="center"/>
         <TextView
             style="@style/shadow_text"
             android:id="@+id/text_email"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif"
             android:text="danillo.moraes@outlook.com"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>

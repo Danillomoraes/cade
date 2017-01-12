@@ -2,8 +2,11 @@
 <set android:ordering="together"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <objectAnimator android:propertyName="y"
-        android:valueTo="-20dp"
+        android:valueTo="+20dp"
         android:valueType="floatType"
         />
-
+    <objectAnimator android:propertyName="alpha"
+        android:valueTo="1"
+        android:valueType="floatType"
+        />
 </set>

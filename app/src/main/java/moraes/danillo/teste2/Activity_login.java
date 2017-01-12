@@ -207,7 +207,6 @@ public class Activity_login extends AppCompatActivity{
         bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
         bit_blur = getBlur(bit_back, 7);
 
-
         img_background.setImageBitmap(bit_blur);
         img_background.setAlpha(0.7f);
         //rela.setBackground(new BitmapDrawable(bit_back));
@@ -281,31 +280,33 @@ public class Activity_login extends AppCompatActivity{
         Button bt_login = (Button) findViewById(R.id.bt_login);
 
         if (nome.equals("sign up") == true) {
-            set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext() , R.animator.animate_down_fadeout);
-            lay_login.animate().alpha(0);
+            //set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext() , R.animator.animate_down_fadeout);
+            //set.setTarget(lay_login);
+            //set.start();
+            lay_login.animate().alpha(0.0f).yBy(100).setDuration(100);
             lay_login.setVisibility(View.GONE);
             bt.animate().y(300f);
             bt_login.animate().y(150f);
-            rela_google.animate().alpha(0);
+            rela_google.animate().alpha(0.0f);
             rela_google.setVisibility(View.GONE);
             lay_sign.setVisibility(View.VISIBLE);
-            lay_sign.animate().alpha(1);
+            lay_sign.animate().alpha(1f);
             bt.setText("Voltar");
             bt_login.setText("Cadastrar");
 
         }else if (nome.equals("Voltar") == true) {
-            lay_sign.animate().alpha(0);
+            lay_sign.animate().alpha(0.0f);
             lay_sign.setVisibility(View.GONE);
             lay_login.setVisibility(View.VISIBLE);
-            lay_login.animate().alpha(1);
+            lay_login.animate().alpha(1f).yBy(-100).setDuration(75);
             bt.setText("sign up");
             bt.animate().y(150f);
             bt_login.setText("Logar");
-            bt_login.animate().y(0f);
+            bt_login.animate().y(0.0f);
             rela_google.animate().setDuration(200);
             rela_google.setY(300f);
             rela_google.setVisibility(View.VISIBLE);
-            rela_google.animate().alpha(1);
+            rela_google.animate().alpha(1f);
         }
 
         if (i>7) {

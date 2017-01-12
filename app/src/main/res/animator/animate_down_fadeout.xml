@@ -3,7 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <objectAnimator
         android:propertyName="alpha"
-        android:duration="250"
+        android:duration="1000"
         android:valueTo="0f"
+        />
+    <objectAnimator
+        android:propertyName="y"
+        android:duration="250"
+        android:valueTo="-20"
+        android:valueType="floatType"
         />
 </set>
