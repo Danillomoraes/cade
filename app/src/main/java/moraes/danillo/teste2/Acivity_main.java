@@ -6,6 +6,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -17,7 +18,9 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 //import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -35,16 +39,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Acivity_main extends AppCompatActivity  {
     int i = 0;
+    int o = 0;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     public ImageView img_profile;
     public ImageView img_capa;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView navigate;
+    public int[] back;
 
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     Bitmap bitm;
@@ -179,9 +186,26 @@ public class Acivity_main extends AppCompatActivity  {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 colors(v);
             }
         });
+
+        back = new int[13];
+
+        back[0] = R.drawable.image_book_background;
+        back[1] = R.drawable.image_books;
+        back[2] = R.drawable.image_books2;
+        back[3] = R.drawable.image_books3;
+        back[4] = R.drawable.image_book4;
+        back[5] = R.drawable.image_book5;
+        back[6] = R.drawable.image_senhor;
+        back[7] = R.drawable.image_apocalispe;
+        back[8] = R.drawable.image_codigo_da_vinci;
+        back[9] = R.drawable.image_excalibur;
+        back[10] = R.drawable.image_martin;
+        back[11] = R.drawable.image_retorno_do_rei;
+        back[12] = R.drawable.image_hobbit;
 
 
 
@@ -264,10 +288,38 @@ public class Acivity_main extends AppCompatActivity  {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Button bt = (Button) findViewById(R.id.bt_sera);
-        AppCompatButton bt = (AppCompatButton) findViewById(R.id.bt_sera);
-        Button bt2 = (Button) findViewById(R.id.bt_sera3);
+        CardView card = (CardView) findViewById(R.id.cardview);
+        ImageView img_view = (ImageView) findViewById(R.id.img);
+        AppCompatButton bt_vibrant = (AppCompatButton) findViewById(R.id.bt_vibrant);
+        Button bt_vibrant_light = (Button) findViewById(R.id.bt_vibrant_light);
+        Button bt_vibrant_dar = (Button) findViewById(R.id.bt_vibrant_dark);
+        Button bt_muted_light = (Button) findViewById(R.id.bt_muted_light);
+        Button bt_muted_dark = (Button) findViewById(R.id.bt_muted_dark);
+        Button bt_muted = (Button) findViewById(R.id.bt_muted);
+
         Palette palette;
-        Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+        Bitmap myBitmap;
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            i = ThreadLocalRandom.current().nextInt(0, 12 + 1);
+            o =ThreadLocalRandom.current().nextInt(0, 5 + 1);
+        }
+        else {
+            if (i>12){
+                i=0;
+            }
+            i +=1;
+            if (o>5){
+                o=0;
+            }
+            o +=1;
+        }
+
+
+
+        change_background_view(back[i], img_view, card);
+
+        myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
         palette = Palette.from(myBitmap).generate();
 
         int i_default = 0x000000;
@@ -277,67 +329,81 @@ public class Acivity_main extends AppCompatActivity  {
         int muted = palette.getMutedColor(i_default);
         int mutedlight = palette.getLightMutedColor(i_default);
         int muteddark = palette.getDarkMutedColor(i_default);
-        int cor[] = new int[22];
 
-        int statuscolor;
+        int[] cor = new int[6];
+
         cor[0] = vibrant;
-        cor[1] = getResources().getColor(R.color.white);
-        cor[2] = getResources().getColor(R.color.red);
-        cor[3] = getResources().getColor(R.color.pink);
-        cor[4] = getResources().getColor(R.color.purple);
-        cor[5] = getResources().getColor(R.color.deep_purple);
-        cor[6] = getResources().getColor(R.color.indigo);
-        cor[7] = getResources().getColor(R.color.blue);
-        cor[8] = getResources().getColor(R.color.light_blue);
-        cor[9] = getResources().getColor(R.color.cyan);
-        cor[10] = getResources().getColor(R.color.teal);
-        cor[11] = getResources().getColor(R.color.green);
-        cor[12] = getResources().getColor(R.color.dark_green);
-        cor[13] = getResources().getColor(R.color.light_green);
-        cor[14] = getResources().getColor(R.color.lime);
-        cor[15] = getResources().getColor(R.color.yellow);
-        cor[16] = getResources().getColor(R.color.amber);
-        cor[17] = getResources().getColor(R.color.orange);
-        cor[18] = getResources().getColor(R.color.deep_orange);
-        cor[19] = getResources().getColor(R.color.brown_900);
-        cor[20] = getResources().getColor(R.color.grey);
+        cor[1] = vibrantlight;
+        cor[2] = vibrantdark;
+        cor[3] = muted;
+        cor[4] = mutedlight;
+        cor[5] = muteddark;
 
-
-        /*if (isColorDark(cor[i]) == true) {
-            statuscolor = darker(cor[i], 2f);
-            toolbar.setBackgroundColor(statuscolor);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(cor[i]);
-            }else {
-                //tintManager.setTintColor(Color.TRANSPARENT);
-            }
-        }else {
-            statuscolor = darker(cor[i], 2f);
-            toolbar.setBackgroundColor(cor[i]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(statuscolor);
-            }else {
-                //tintManager.setTintColor(Color.TRANSPARENT);
-            }
-        }*/
-
-        statuscolor = dark(cor[i]);
-
-        setStatusAndActionBarColor(cor[i]);
+        setStatusAndActionBarColor(vibrant);
 
         //bt.setBackgroundColor(cor[i]);
-        bt2.setBackgroundColor(statuscolor);
-        bt.setSupportBackgroundTintList(getResources().getColorStateList(R.color.blue_grey));
+        bt_vibrant.getBackground().setColorFilter(vibrant, PorterDuff.Mode.MULTIPLY);
+        bt_vibrant_dar.getBackground().setColorFilter(vibrantdark, PorterDuff.Mode.MULTIPLY);
+        bt_vibrant_light.getBackground().setColorFilter(vibrantlight, PorterDuff.Mode.MULTIPLY);
+        bt_muted.getBackground().setColorFilter(muted, PorterDuff.Mode.MULTIPLY);
+        bt_muted_dark.getBackground().setColorFilter(muteddark, PorterDuff.Mode.MULTIPLY);
+        bt_muted_light.getBackground().setColorFilter(mutedlight, PorterDuff.Mode.MULTIPLY);
+
+        //bt.setSupportBackgroundTintList(getResources().getColorStateList(R.color.blue_grey));
 
         i+=1;
     }
+
+    private int dpToPx(int dp) {
+        float density = getApplicationContext().getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
+    }
+
+    private int pxtoDp (int px) {
+        float density = getApplicationContext().getResources().getDisplayMetrics().density;
+        return (int) Math.round(px/density);
+    }
+
+    public void change_background_view (int r, ImageView img_background, CardView card) {
+        Bitmap bit_back;
+
+        bit_back = BitmapFactory.decodeResource(getResources(), r);
+
+        float x = card.getWidth()/(float) (bit_back.getWidth()) ; //getting scale x to downscale
+        float y = (float) (dpToPx(600)) /(float) (bit_back.getHeight()); //gettin scale y to downscale
+        float z;
+        boolean d;
+
+        if (bit_back.getHeight() > bit_back.getWidth()) {
+
+            z = y;
+            d =true;
+
+        } else {
+
+            z = x;
+            d = false;
+        }
+
+        bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
+
+        if (d = true) {
+
+            card.animate().scaleY((float) (dpToPx(750))/(float) (bit_back.getHeight()));
+
+        }
+
+        img_background.setImageBitmap(bit_back);
+        }
 
     public void setStatusAndActionBarColor (int color) {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         View status = (View) findViewById(R.id.status);
         int light_color;
         int dark_color;
-        float h[] = new float[3];
+
+
+        /*float h[] = new float[3];
 
         Color.colorToHSV(color, h);
 
@@ -349,7 +415,10 @@ public class Acivity_main extends AppCompatActivity  {
             dark_color = color;
             h[2] = h[2] + 0.1f;
             light_color = Color.HSVToColor(h);
-        }
+        }*/
+
+        light_color = getPalttecolor(color, 0.5f);
+        dark_color = getPalttecolor(color,0.7f);
 
         toolbar.setBackgroundColor(light_color);
         status.setBackgroundColor(dark_color);
@@ -361,42 +430,17 @@ public class Acivity_main extends AppCompatActivity  {
             }
     }
 
-    public int dark (int color) {
+    public int getPalttecolor (int color, float o) {
         int new_color;
-        float h[] = new float[3];
+        float h[] = new float [3];
 
         Color.colorToHSV(color, h);
 
-        if (h[2] >= 0.8f) {
-            h[2] = h[2] - 0.1f;
-        } else {
-            h[2] = h[2] + 0.1f;
-        }
+        h[2] = o;
 
         new_color = Color.HSVToColor(h);
 
         return new_color;
-    }
-
-    public boolean isColorDark (int color) {
-        double darkness = 1-(0.299*Color.red(color)+0.587*Color.green(color)+ 0.114*Color.blue(color))/255;
-        if (darkness<0.5) {
-            return false;
-        } else{
-            return true;
-        }
-    }
-
-    public static int darker (int color, float factor) {
-        int a = Color.alpha( color );
-        int r = Color.red( color );
-        int g = Color.green( color );
-        int b = Color.blue( color );
-
-        return Color.argb( a,
-                Math.max( (int)(r * factor), 0 ),
-                Math.max( (int)(g * factor), 0 ),
-                Math.max( (int)(b * factor), 0 ) );
     }
 
     private String makeRequest(String urlAddress) {

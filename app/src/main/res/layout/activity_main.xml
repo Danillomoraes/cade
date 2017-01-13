@@ -70,36 +70,61 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:src="@drawable/icon"
-                            android:background="@color/white"/>
-
-                        <TextView
-                            android:id="@+id/text_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_below="@+id/img"
-                            android:padding="3dp"
-                            android:text="Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto"
-                            android:textColor="#000000"
+                            android:scaleType="centerCrop"
                             android:background="@color/white"/>
 
                         <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/bt_sera"
+                            android:id="@+id/bt_vibrant"
                             android:theme="@style/material_button"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"
-                            android:text="Será ?" />
+                            android:text="Vibrant" />
 
                         <Button
-                            android:id="@+id/bt_sera3"
+                            android:id="@+id/bt_vibrant_light"
                             android:theme="@style/material_button"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_alignParentBottom="true"
-                            android:layout_toRightOf="@+id/bt_sera"
-                            android:text="Será ?" />
+                            android:layout_centerHorizontal="true"
+                            android:text="Vibrant Light" />
 
+                        <Button
+                            android:id="@+id/bt_vibrant_dark"
+                            android:theme="@style/material_button"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:text="vibrant dark" />
 
+                        <Button
+                            android:id="@+id/bt_muted"
+                            android:theme="@style/material_button"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_above="@+id/bt_vibrant"
+                            android:text="muted" />
+
+                        <Button
+                            android:id="@+id/bt_muted_light"
+                            android:theme="@style/material_button"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/bt_vibrant"
+                            android:text="muted light" />
+
+                        <Button
+                            android:id="@+id/bt_muted_dark"
+                            android:theme="@style/material_button"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_above="@+id/bt_vibrant"
+                            android:text="muted dark" />
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>

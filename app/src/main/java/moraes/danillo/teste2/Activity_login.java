@@ -2,6 +2,7 @@ package moraes.danillo.teste2;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -280,30 +281,35 @@ public class Activity_login extends AppCompatActivity{
         Button bt_login = (Button) findViewById(R.id.bt_login);
 
         if (nome.equals("sign up") == true) {
-            //set = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext() , R.animator.animate_down_fadeout);
-            //set.setTarget(lay_login);
-            //set.start();
-            lay_login.animate().alpha(0.0f).yBy(100).setDuration(100);
+            /*set = new AnimatorSet();
+            set.playTogether(
+                    ObjectAnimator.ofFloat(lay_login,View.ALPHA, 0.0f),
+                    ObjectAnimator.ofFloat(lay_login,View.Y, 100f)
+                    );
+            set.setDuration(100);
+            set.start();*/
+
+            lay_login.animate().alpha(0.0f).setDuration(100);
             lay_login.setVisibility(View.GONE);
             bt.animate().y(300f);
             bt_login.animate().y(150f);
-            rela_google.animate().alpha(0.0f);
+            rela_google.animate().alpha(0.0f).setDuration(100);
+            bt.setText("Voltar");
+            bt_login.setText("Cadastrar");
             rela_google.setVisibility(View.GONE);
             lay_sign.setVisibility(View.VISIBLE);
             lay_sign.animate().alpha(1f);
-            bt.setText("Voltar");
-            bt_login.setText("Cadastrar");
 
         }else if (nome.equals("Voltar") == true) {
             lay_sign.animate().alpha(0.0f);
             lay_sign.setVisibility(View.GONE);
             lay_login.setVisibility(View.VISIBLE);
-            lay_login.animate().alpha(1f).yBy(-100).setDuration(75);
+            lay_login.animate().alpha(1f).setDuration(100);
             bt.setText("sign up");
             bt.animate().y(150f);
             bt_login.setText("Logar");
             bt_login.animate().y(0.0f);
-            rela_google.animate().setDuration(200);
+            rela_google.animate().setDuration(100);
             rela_google.setY(300f);
             rela_google.setVisibility(View.VISIBLE);
             rela_google.animate().alpha(1f);
