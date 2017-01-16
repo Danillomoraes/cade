@@ -1,5 +1,7 @@
 package moraes.danillo.teste2;
 
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -25,7 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -34,6 +38,7 @@ import android.widget.Toast;
 //import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -182,7 +187,7 @@ public class Acivity_main extends AppCompatActivity  {
         */
 
 
-        Button bt = (Button) findViewById(R.id.bt_sera2);
+        Button bt = (Button) findViewById(R.id.bt_vibrant);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,9 +212,21 @@ public class Acivity_main extends AppCompatActivity  {
         back[11] = R.drawable.image_retorno_do_rei;
         back[12] = R.drawable.image_hobbit;
 
+        ImageView img_categoria1 = (ImageView) findViewById(R.id.img_categoria1);
+        ImageView img_categoria2 = (ImageView) findViewById(R.id.img_categoria2);
+        ImageView img_categoria3 = (ImageView) findViewById(R.id.img_categoria3);
 
+        try {
 
-        //mDrawerList = (ListView) findViewById(R.id.left_drawer);
+            img_categoria1.setImageBitmap(getSizedBitmap(back[11], img_categoria1.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
+            img_categoria2.setImageBitmap(getSizedBitmap(back[7], img_categoria2.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
+            img_categoria3.setImageBitmap(getSizedBitmap(back[9], img_categoria3.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
+
+        } catch (Exception e) {
+            EditText tx = (EditText) findViewById(R.id.tx_log);
+            getlog();
+        }
+            //mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         //mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item_list, mPlanetTitles));
 
@@ -370,31 +387,84 @@ public class Acivity_main extends AppCompatActivity  {
         bit_back = BitmapFactory.decodeResource(getResources(), r);
 
         float x = card.getWidth()/(float) (bit_back.getWidth()) ; //getting scale x to downscale
-        float y = (float) (dpToPx(600)) /(float) (bit_back.getHeight()); //gettin scale y to downscale
+        float y = (float) (dpToPx(300)) /(float) (bit_back.getHeight()); //gettin scale y to downscale
         float z;
-        boolean d;
 
         if (bit_back.getHeight() > bit_back.getWidth()) {
 
             z = y;
-            d =true;
 
         } else {
 
             z = x;
-            d = false;
         }
 
         bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
 
-        if (d = true) {
+        int cardheight = card.getHeight() - img_background.getHeight();
 
-            card.animate().scaleY((float) (dpToPx(750))/(float) (bit_back.getHeight()));
-
-        }
+        expandCard(card,bit_back.getHeight()+cardheight);
+        expandCard(img_background, bit_back.getHeight());
 
         img_background.setImageBitmap(bit_back);
         }
+
+    public Bitmap getSizedBitmap (int r, int height, int width) {
+        Bitmap new_bitmap;
+
+        new_bitmap = BitmapFactory.decodeResource(getResources(), r);
+
+        float x = (float) (width) / (float) (new_bitmap.getWidth());
+        float y = (float) (height) / (float) (new_bitmap.getHeight());
+        float z;
+
+        if (new_bitmap.getHeight() > new_bitmap.getWidth()) {
+
+            z = y;
+
+        } else {
+
+            z = x;
+        }
+
+        new_bitmap = Bitmap.createScaledBitmap(new_bitmap,(int)(new_bitmap.getWidth()*z),(int) (new_bitmap.getHeight()*z), true);
+
+        return  new_bitmap;
+    }
+
+    public void expandCard (final View v, int newHeight) {
+
+        // set the values we want to animate between and how long it takes
+        // to run
+        ValueAnimator slideAnimator = ValueAnimator
+                .ofInt(v.getHeight(), newHeight)
+                .setDuration(300);
+
+        // we want to manually handle how each tick is handled so add a
+        // listener
+        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // get the value the interpolator is at
+                Integer value = (Integer) animation.getAnimatedValue();
+                // I'm going to set the layout's height 1:1 to the tick
+                v.getLayoutParams().height = value.intValue();
+                // force all layouts to see which ones are affected by
+                // this layouts height change
+                v.requestLayout();
+            }
+        });
+
+        // create a new animationset
+        AnimatorSet set = new AnimatorSet();
+        // since this is the only animation we are going to run we just use
+        // play
+        set.play(slideAnimator);
+        // this is how you set the parabola which controls acceleration
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        // start the animation
+        set.start();
+    }
 
     public void setStatusAndActionBarColor (int color) {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -417,8 +487,8 @@ public class Acivity_main extends AppCompatActivity  {
             light_color = Color.HSVToColor(h);
         }*/
 
-        light_color = getPalttecolor(color, 0.5f);
-        dark_color = getPalttecolor(color,0.7f);
+        light_color = getPalttecolor(color, 0.7f);
+        dark_color = getPalttecolor(color,0.5f);
 
         toolbar.setBackgroundColor(light_color);
         status.setBackgroundColor(dark_color);
@@ -483,6 +553,31 @@ public class Acivity_main extends AppCompatActivity  {
             }
         }
         return builder.toString();
+    }
+
+    public void getlog () {
+
+        try {
+            Process process = Runtime.getRuntime().exec("logcat -d > log.txt");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            StringBuilder log=new StringBuilder();
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line);
+            }
+
+            Toast toast = Toast.makeText(getApplicationContext(), log.toString(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        catch (IOException e) {
+
+            Toast toast = Toast.makeText(getApplicationContext(), "agora fudeu", Toast.LENGTH_LONG);
+            toast.show();
+
+        }
+
     }
 
 }

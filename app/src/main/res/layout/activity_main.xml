@@ -54,10 +54,74 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_height="225dp"
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/img_categoria1"
+                            android:layout_width="125dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitStart"
+                            android:src="@color/brown_900"/>
+
+                        <ImageView
+                            android:layout_alignRight="@+id/img_categoria1"
+                            android:id="@+id/img_categoria2"
+                            android:layout_width="125dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@color/dark_green"/>
+
+                        <ImageView
+                            android:id="@+id/img_categoria3"
+                            android:layout_width="125dp"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@color/teal"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_alignParentBottom="true">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/aplha_black"/>
+
+                            <EditText
+                                android:id="@+id/tx_log"
+                                android:layout_width="match_parent"
+                                android:layout_height="90dp"
+                                android:layout_alignParentBottom="true"
+                                android:text="@string/categories_fantastic"
+                                android:textColor="@color/white"
+                                android:layout_margin="16dp"
+                                android:fontFamily="sans-serif-condensed"
+                                />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/cardview"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     card_view:cardCornerRadius="4dp">
 
                     <RelativeLayout
@@ -128,89 +192,6 @@
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cardview2"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="10dp"
-                    card_view:cardCornerRadius="4dp">
-
-                    <RelativeLayout
-                        android:theme="@style/AppBaseTheme"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white">
-
-                        <ImageView
-                            android:id="@+id/img2"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/icon" />
-
-                        <TextView
-                            android:id="@+id/text_view2"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_below="@+id/img2"
-                            android:padding="3dp"
-                            android:text="Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto"
-                            android:textColor="#000000" />
-
-                        <Button
-                            android:theme="@style/material_button"
-                            android:id="@+id/bt_sera2"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentBottom="true"
-                            android:text="Será ?" />
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cardview3"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="10dp"
-                    card_view:cardCornerRadius="4dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white">
-
-                        <ImageView
-                            android:id="@+id/img3"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/icon"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginBottom="171dp" />
-
-                        <TextView
-                            android:id="@+id/text_view3"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_below="@+id/img3"
-                            android:padding="3dp"
-                            android:text="Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto, Este é um Texto"
-                            android:textColor="#000000" />
-
-                        <Button
-                            android:theme="@style/material_button"
-                            android:layout_width="100dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentBottom="true"
-                            android:text="Será ?" />
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
 
             </LinearLayout>
 

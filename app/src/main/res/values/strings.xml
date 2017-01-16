@@ -7,5 +7,6 @@
     <string name="likes_label">Likes: %1$s</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="categories_fantastic">Literatura fantástica</string>
 
 </resources>

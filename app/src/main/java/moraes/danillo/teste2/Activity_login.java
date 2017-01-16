@@ -58,21 +58,7 @@ public class Activity_login extends AppCompatActivity{
         }
         setContentView(R.layout.activity_login);
 
-        Palette palette;
-        Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_book_background);
-        if (myBitmap != null && !myBitmap.isRecycled()) {
-          palette = Palette.from(myBitmap).generate();
-
-            int i_default = 0x000000;
-            int vibrant = palette.getVibrantColor(i_default);
-            int vibrantlight = palette.getLightVibrantColor(i_default);
-            int vibrantdark = palette.getDarkVibrantColor(i_default);
-            int muted = palette.getMutedColor(i_default);
-            int mutedlight = palette.getLightMutedColor(i_default);
-            int muteddark = palette.getDarkMutedColor(i_default);
-        }
-
-        back = new int[8];
+        back = new int[13];
 
         back[0] = R.drawable.image_book_background;
         back[1] = R.drawable.image_books;
@@ -81,7 +67,12 @@ public class Activity_login extends AppCompatActivity{
         back[4] = R.drawable.image_book4;
         back[5] = R.drawable.image_book5;
         back[6] = R.drawable.image_senhor;
-        back[7] = R.drawable.image_hobbit;
+        back[7] = R.drawable.image_apocalispe;
+        back[8] = R.drawable.image_codigo_da_vinci;
+        back[9] = R.drawable.image_excalibur;
+        back[10] = R.drawable.image_martin;
+        back[11] = R.drawable.image_retorno_do_rei;
+        back[12] = R.drawable.image_hobbit;
 
         //TextView txt = (TextView) findViewById(R.id.textView2);
         //Button bt = (Button) findViewById(R.id.bt_login);
@@ -117,10 +108,10 @@ public class Activity_login extends AppCompatActivity{
         super.onStart();
 
         if (Build.VERSION.SDK_INT >= 21) {
-            i = ThreadLocalRandom.current().nextInt(0, 7 + 1);
+            i = ThreadLocalRandom.current().nextInt(0, 12 + 1);
         }
         try {
-            if (i > 7) {
+            if (i > 12) {
                 i = 0;
             }
             change_background(back[i]);
@@ -206,50 +197,11 @@ public class Activity_login extends AppCompatActivity{
         }
 
         bit_back = Bitmap.createScaledBitmap(bit_back, (int)(bit_back.getWidth()*z), (int)(bit_back.getHeight()*z), true );
-        bit_blur = getBlur(bit_back, 7);
+        bit_blur = getBlur(bit_back, 12);
 
         img_background.setImageBitmap(bit_blur);
         img_background.setAlpha(0.7f);
         //rela.setBackground(new BitmapDrawable(bit_back));
-    }
-
-    public void teste_cor (View v) {
-
-        Palette palette;
-        Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_book_background);
-        palette = Palette.from(myBitmap).generate();
-
-            int i_default = 0x000000;
-            int vibrant = palette.getVibrantColor(i_default);
-            int vibrantlight = palette.getLightVibrantColor(i_default);
-            int vibrantdark = palette.getDarkVibrantColor(i_default);
-            int muted = palette.getMutedColor(i_default);
-            int mutedlight = palette.getLightMutedColor(i_default);
-            int muteddark = palette.getDarkMutedColor(i_default);
-
-
-
-        //TextView txt = (TextView) findViewById(R.id.textView2);
-        Button bt = (Button) findViewById(R.id.bt_login);
-        Button bt2 = (Button) findViewById(R.id.bt_signup);
-        Button bt3 = (Button) findViewById(R.id.bt_face);
-        Button bt4 = (Button) findViewById(R.id.bt_google);
-
-        //bt.setBackgroundColor(vibrant);
-        //bt2.setBackgroundColor(vibrantlight);
-
-        bt.getBackground().setColorFilter(vibrant, PorterDuff.Mode.MULTIPLY);
-        bt2.getBackground().setColorFilter(vibrantdark, PorterDuff.Mode.MULTIPLY);
-
-        bt3.setBackgroundColor(vibrantdark);
-        bt4.setBackgroundColor(muted);
-
-    }
-
-    public static Drawable setTint(Drawable drawable, int color) {
-        final Drawable newDrawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTint(newDrawable, color);
-        return newDrawable;
     }
 
     public void validalogin (View v) {
@@ -339,7 +291,7 @@ public class Activity_login extends AppCompatActivity{
 
     }
 
-    public Bitmap getBlur (Bitmap in, float radius) { //method to set blur image
+    public Bitmap getBlur (Bitmap in, float radius) { //method to set blur image, radius max 20
         Bitmap out;
 
         out = Bitmap.createBitmap(in);
