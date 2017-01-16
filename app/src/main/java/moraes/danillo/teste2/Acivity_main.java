@@ -12,6 +12,10 @@ import android.graphics.PorterDuff;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -216,16 +220,15 @@ public class Acivity_main extends AppCompatActivity  {
         ImageView img_categoria2 = (ImageView) findViewById(R.id.img_categoria2);
         ImageView img_categoria3 = (ImageView) findViewById(R.id.img_categoria3);
 
-        try {
+        //try {
 
-            img_categoria1.setImageBitmap(getSizedBitmap(back[11], img_categoria1.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
-            img_categoria2.setImageBitmap(getSizedBitmap(back[7], img_categoria2.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
-            img_categoria3.setImageBitmap(getSizedBitmap(back[9], img_categoria3.getHeight(), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)));
+            img_categoria1.setImageBitmap(getBlur(getSizedBitmap(back[11], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)), 15));
+            img_categoria2.setImageBitmap(getBlur(getSizedBitmap(back[7], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)), 15));
+            img_categoria3.setImageBitmap(getBlur(getSizedBitmap(back[9], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)),15));
 
-        } catch (Exception e) {
-            EditText tx = (EditText) findViewById(R.id.tx_log);
-            getlog();
-        }
+        //} catch (Exception e) {
+            //getlog();
+
             //mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         //mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item_list, mPlanetTitles));
@@ -356,7 +359,7 @@ public class Acivity_main extends AppCompatActivity  {
         cor[4] = mutedlight;
         cor[5] = muteddark;
 
-        setStatusAndActionBarColor(vibrant);
+        setStatusAndActionBarColor(muted);
 
         //bt.setBackgroundColor(cor[i]);
         bt_vibrant.getBackground().setColorFilter(vibrant, PorterDuff.Mode.MULTIPLY);
@@ -487,8 +490,8 @@ public class Acivity_main extends AppCompatActivity  {
             light_color = Color.HSVToColor(h);
         }*/
 
-        light_color = getPalttecolor(color, 0.7f);
-        dark_color = getPalttecolor(color,0.5f);
+        light_color = color;
+        dark_color = getPalttecolor(color, 0.5f);
 
         toolbar.setBackgroundColor(light_color);
         status.setBackgroundColor(dark_color);
@@ -558,7 +561,7 @@ public class Acivity_main extends AppCompatActivity  {
     public void getlog () {
 
         try {
-            Process process = Runtime.getRuntime().exec("logcat -d > log.txt");
+            Process process = Runtime.getRuntime().exec("logcat -t 500 -f sdcard/log.txt");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 
@@ -578,6 +581,23 @@ public class Acivity_main extends AppCompatActivity  {
 
         }
 
+    }
+
+    public Bitmap getBlur (Bitmap in, float radius) { //method to set blur image, radius max 20
+        Bitmap out;
+
+        out = Bitmap.createBitmap(in);
+        final RenderScript render = RenderScript.create(this);
+        Allocation tmpIn = Allocation.createFromBitmap(render, in);
+        Allocation tmpOut = Allocation.createFromBitmap(render, out);
+
+        ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(render, Element.U8_4(render));
+        theIntrinsic.setRadius(radius);
+        theIntrinsic.setInput(tmpIn);
+        theIntrinsic.forEach(tmpOut);
+        tmpOut.copyTo(out);
+
+        return out;
     }
 
 }

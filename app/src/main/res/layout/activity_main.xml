@@ -67,8 +67,8 @@
                             android:id="@+id/img_categoria1"
                             android:layout_width="125dp"
                             android:layout_height="match_parent"
-                            android:scaleType="fitStart"
-                            android:src="@color/brown_900"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image_doge"/>
 
                         <ImageView
                             android:layout_alignRight="@+id/img_categoria1"
@@ -76,14 +76,14 @@
                             android:layout_width="125dp"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@color/dark_green"/>
+                            android:src="@drawable/image_doge"/>
 
                         <ImageView
                             android:id="@+id/img_categoria3"
                             android:layout_width="125dp"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@color/teal"/>
+                            android:src="@drawable/image_doge"/>
 
                     </LinearLayout>
 
@@ -101,7 +101,7 @@
                                 android:layout_height="match_parent"
                                 android:background="@color/aplha_black"/>
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/tx_log"
                                 android:layout_width="match_parent"
                                 android:layout_height="90dp"
