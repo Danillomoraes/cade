@@ -29,9 +29,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.Button;
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 //import com.lgvalle.material_animations.databinding.ActivityTransition2Binding;
 
@@ -216,9 +221,25 @@ public class Activity_login extends AppCompatActivity{
     }
 
     public void callactivity (View v) {
+        try {
+            URL url = new URL("http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.addRequestProperty("login","danillom");
+            con.addRequestProperty("senha","zelda9891");
+            con.setRequestMethod("POST");
+
+            String resp = con.getResponseMessage();
+
+            Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_LONG).show();
+
+        }catch (MalformedURLException e) {
+            getlog();
+        }catch (IOException e){
+            getlog();
+        }
+
         Intent intent = new Intent(this, Acivity_main.class);
         startActivity(intent);
-
     }
 
     public void sign_form (View v) {
