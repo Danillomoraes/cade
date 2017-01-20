@@ -151,6 +151,10 @@ public class Acivity_main extends AppCompatActivity  {
             }
         });
 
+        EditText error_edt = (EditText) findViewById(R.id.error_edt);
+        error_edt.setText(getIntent().getStringExtra("EXTRA_SESSION_ID"));
+
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -195,7 +199,7 @@ public class Acivity_main extends AppCompatActivity  {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getApplicationContext(), getIntent().getStringExtra("EXTRA_SESSION_ID"), Toast.LENGTH_LONG).show();
                 colors(v);
             }
         });

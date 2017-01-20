@@ -10,6 +10,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.NetworkOnMainThreadException;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -28,13 +30,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.Button;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -45,6 +52,8 @@ public class Activity_login extends AppCompatActivity{
     public ImageView img_background;
     public int[] back;
     int i = 0;
+    public String respo;
+    public String error = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,16 +255,51 @@ public class Activity_login extends AppCompatActivity{
         }catch (IOException e){
             getlog();
         } */
-        String url = "http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php";
-        String login = "danillom";
-        String senha = "zelda9891";
-        String resp;
+        final String url = "http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php";
+        final String login = "danillom";
+        final String senha = "zelda9891";
 
-        resp = new login_thread().doInBackground(url, login, senha);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
 
-        Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_LONG);
+                try {
+                    URL ulr =new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) ulr.openConnection();
+                    con.addRequestProperty("login", login);
+                    con.addRequestProperty("senha", senha);
+
+                    InputStream response = new BufferedInputStream(con.getInputStream());
+
+                    respo = convertStreamToString(response);
+
+                }catch (MalformedURLException e) {
+                    //getlog();
+                    error = e.getMessage();
+                }catch (NetworkOnMainThreadException e){
+                    //getlog();
+                    e.printStackTrace();
+                    error = e.toString();
+                }catch (IOException e){
+                    error = e.toString();
+                }
+                finally {
+
+                }
+
+            }
+        };
+
+        runnable.run();
+
+        //resp = new login_thread().doInBackground(url, login, senha);
+        if (error != "" ) {
+            Toast t = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG);
+            t.show();
+        }
 
         Intent intent = new Intent(this, Acivity_main.class);
+        intent.putExtra("EXTRA_SESSION_ID", respo);
         startActivity(intent);
     }
 
@@ -311,21 +355,25 @@ public class Activity_login extends AppCompatActivity{
 
     }
 
-    public void getlog () {
-
+    public String getlog () {
+        StringBuilder log=new StringBuilder();
         try {
-            Process process = Runtime.getRuntime().exec("logcat -d > logcat.txt");
+            Process process = Runtime.getRuntime().exec("logcat -d");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 
-            StringBuilder log=new StringBuilder();
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 log.append(line);
             }
 
+            Toast toast = Toast.makeText(getApplicationContext(), log.toString(), Toast.LENGTH_LONG);
+            toast.show();
+
         }
         catch (IOException e) {}
+
+        return  log.toString();
 
     }
 
@@ -344,5 +392,10 @@ public class Activity_login extends AppCompatActivity{
         tmpOut.copyTo(out);
 
         return out;
+    }
+
+    static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 }
