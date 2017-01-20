@@ -166,7 +166,6 @@
             style="@style/transparent_button"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:onClick="callactivity"
             android:text="Login"
             android:textAllCaps="true"
             android:textSize="15dp"

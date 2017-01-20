@@ -107,6 +107,15 @@ public class Activity_login extends AppCompatActivity{
             }
         }); */
 
+        Button bt_login = (Button) findViewById(R.id.bt_login);
+
+        bt_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                callactivity(v);
+            }
+        });
+
     }
     @Override
     protected void onStart () {
@@ -221,7 +230,7 @@ public class Activity_login extends AppCompatActivity{
     }
 
     public void callactivity (View v) {
-        try {
+        /*try {
             URL url = new URL("http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.addRequestProperty("login","danillom");
@@ -236,7 +245,15 @@ public class Activity_login extends AppCompatActivity{
             getlog();
         }catch (IOException e){
             getlog();
-        }
+        } */
+        String url = "http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php";
+        String login = "danillom";
+        String senha = "zelda9891";
+        String resp;
+
+        resp = new login_thread().doInBackground(url, login, senha);
+
+        Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_LONG);
 
         Intent intent = new Intent(this, Acivity_main.class);
         startActivity(intent);
