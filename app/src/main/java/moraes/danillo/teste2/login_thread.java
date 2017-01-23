@@ -3,13 +3,22 @@ package moraes.danillo.teste2;
 import android.content.Context;
 import android.icu.text.DateFormat;
 import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,32 +39,103 @@ public class login_thread extends AsyncTask<String, String, String> {
         String url = args[0];
         String login = args[1];
         String senha = args[2];
+        String resp= "";
 
         try {
-            String charset = "UTF-8";  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
-            String param1 = login;
-            String param2 = senha;
-// ...
+            URL ulr = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) ulr.openConnection();
+            con.setDoOutput(true);
 
-            String query = String.format("param1=%s&param2=%s",
-                    URLEncoder.encode(param1, charset),
-                    URLEncoder.encode(param2, charset));
+            String data = URLEncoder.encode("login", "UTF-8")
+                    + "=" + URLEncoder.encode(login, "UTF-8");
 
-            URLConnection con = new URL(url + "?" + query).openConnection();
-            InputStream response = new URL(url).openStream();
+            data += "&" + URLEncoder.encode("senha", "UTF-8") + "="
+                    + URLEncoder.encode(senha, "UTF-8");
 
-            return response.toString();
+            String text = "";
+            BufferedReader reader = null;
+            try {
+
+
+                OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+                wr.write(data);
+                wr.flush();
+
+                reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while ((line = reader.readLine()) != null) {
+                    // Append server response in string
+                    sb.append(line + "\n");
+                }
+
+                text = sb.toString();
+
+            }catch (Exception e) {
+                e.printStackTrace();
+                getlog();
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                resp = sw.toString();
+            }
+            finally {
+
+                reader.close();
+            }
 
         }catch (MalformedURLException e) {
-            e.getStackTrace();
-        }catch (Exception e){
-            e.getStackTrace();
+            getlog();
+            resp= e.getStackTrace().toString();
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            resp = sw.toString();
+        }catch (NetworkOnMainThreadException e){
+            getlog();
+            resp= e.getStackTrace().toString();
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            resp = sw.toString();
+        }catch (IOException e){
+            getlog();
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            resp = sw.toString();
         }
-        return "";
+        finally {
+
+            return resp;
+        }
+    }
+
+    public String getlog () {
+        StringBuilder log=new StringBuilder();
+        try {
+            java.lang.Process process = Runtime.getRuntime().exec("logcat -t 500 -f /storage/sdcard1/log.txt");
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line);
+            }
+
+        }
+        catch (IOException e) {}
+
+        return  log.toString();
+
     }
 
     protected void onPostExecute(String result) {
 
     }
-
 }

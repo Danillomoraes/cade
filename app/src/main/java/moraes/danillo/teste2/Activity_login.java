@@ -8,10 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.NetworkOnMainThreadException;
+import android.os.Process;
+import android.os.StrictMode;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -20,6 +23,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -255,13 +259,16 @@ public class Activity_login extends AppCompatActivity{
         }catch (IOException e){
             getlog();
         } */
-        final String url = "http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php";
+        final String url = "http://104.131.159.76/server_rest.php";
         final String login = "danillom";
         final String senha = "zelda9891";
-
-        Runnable runnable = new Runnable() {
+        String resp ="";
+        /*
+        Thread thread = new Thread ( new Runnable() {
             @Override
             public void run() {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
 
                 try {
                     URL ulr =new URL(url);
@@ -275,28 +282,28 @@ public class Activity_login extends AppCompatActivity{
 
                 }catch (MalformedURLException e) {
                     //getlog();
-                    error = e.getMessage();
+                    e.printStackTrace();
                 }catch (NetworkOnMainThreadException e){
                     //getlog();
                     e.printStackTrace();
-                    error = e.toString();
                 }catch (IOException e){
-                    error = e.toString();
+                    //error = e.toString();
+                    e.printStackTrace();
                 }
                 finally {
 
                 }
 
             }
-        };
+        });
+        //thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+        thread.run(); */
 
-        runnable.run();
+        resp = new login_thread().doInBackground(url, login, senha);
 
-        //resp = new login_thread().doInBackground(url, login, senha);
-        if (error != "" ) {
-            Toast t = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG);
-            t.show();
-        }
+        Toast t = Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_LONG);
+        t.show();
+
 
         Intent intent = new Intent(this, Acivity_main.class);
         intent.putExtra("EXTRA_SESSION_ID", respo);
@@ -358,7 +365,7 @@ public class Activity_login extends AppCompatActivity{
     public String getlog () {
         StringBuilder log=new StringBuilder();
         try {
-            Process process = Runtime.getRuntime().exec("logcat -d");
+            java.lang.Process process = Runtime.getRuntime().exec("logcat -t 500 -f sdcard/log.txt");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 
