@@ -263,40 +263,16 @@ public class Activity_login extends AppCompatActivity{
         final String login = "danillom";
         final String senha = "zelda9891";
         String resp ="";
-        /*
-        Thread thread = new Thread ( new Runnable() {
+
+        /* Thread thread = new Thread ( new Runnable() {
             @Override
             public void run() {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
 
-                try {
-                    URL ulr =new URL(url);
-                    HttpURLConnection con = (HttpURLConnection) ulr.openConnection();
-                    con.addRequestProperty("login", login);
-                    con.addRequestProperty("senha", senha);
 
-                    InputStream response = new BufferedInputStream(con.getInputStream());
-
-                    respo = convertStreamToString(response);
-
-                }catch (MalformedURLException e) {
-                    //getlog();
-                    e.printStackTrace();
-                }catch (NetworkOnMainThreadException e){
-                    //getlog();
-                    e.printStackTrace();
-                }catch (IOException e){
-                    //error = e.toString();
-                    e.printStackTrace();
-                }
-                finally {
-
-                }
 
             }
         });
-        //thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
         thread.run(); */
 
         resp = new login_thread().doInBackground(url, login, senha);

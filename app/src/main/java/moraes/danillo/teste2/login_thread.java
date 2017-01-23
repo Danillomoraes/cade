@@ -40,50 +40,31 @@ public class login_thread extends AsyncTask<String, String, String> {
         String login = args[1];
         String senha = args[2];
         String resp= "";
+        InputStream stream;
+        BufferedReader reader;
+        URL ulr;
+        HttpURLConnection con;
 
         try {
-            URL ulr = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) ulr.openConnection();
-            con.setDoOutput(true);
+            ulr = new URL(url);
+            con = (HttpURLConnection) ulr.openConnection();
+            con.addRequestProperty("login", "danillom");
+            con.addRequestProperty("senha", "zelda9891");
+            con.setRequestMethod("GET");
+            con.setDoInput(true);
 
-            String data = URLEncoder.encode("login", "UTF-8")
-                    + "=" + URLEncoder.encode(login, "UTF-8");
+            con.connect();
 
-            data += "&" + URLEncoder.encode("senha", "UTF-8") + "="
-                    + URLEncoder.encode(senha, "UTF-8");
+            int responcecode = con.getResponseCode();
 
-            String text = "";
-            BufferedReader reader = null;
-            try {
-
-
-                OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-                wr.write(data);
-                wr.flush();
-
-                reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                // Read Server Response
-                while ((line = reader.readLine()) != null) {
-                    // Append server response in string
-                    sb.append(line + "\n");
-                }
-
-                text = sb.toString();
-
-            }catch (Exception e) {
-                e.printStackTrace();
-                getlog();
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                resp = sw.toString();
+            if (responcecode != HttpURLConnection.HTTP_OK) {
+                return String.valueOf(responcecode);
             }
-            finally {
 
-                reader.close();
+            stream = con.getInputStream();
+
+            if (stream != null) {
+                resp = readStream(stream, 1500);
             }
 
         }catch (MalformedURLException e) {
@@ -102,7 +83,7 @@ public class login_thread extends AsyncTask<String, String, String> {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             resp = sw.toString();
-        }catch (IOException e){
+        }catch (Exception e){
             getlog();
             e.printStackTrace();
             StringWriter sw = new StringWriter();
@@ -119,7 +100,7 @@ public class login_thread extends AsyncTask<String, String, String> {
     public String getlog () {
         StringBuilder log=new StringBuilder();
         try {
-            java.lang.Process process = Runtime.getRuntime().exec("logcat -t 500 -f /storage/sdcard1/log.txt");
+            java.lang.Process process = Runtime.getRuntime().exec("logcat -t 1000 -f /log.txt");
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
 
@@ -133,6 +114,30 @@ public class login_thread extends AsyncTask<String, String, String> {
 
         return  log.toString();
 
+    }
+
+    private String readStream(InputStream stream, int maxLength) throws IOException {
+        String result = null;
+        // Read InputStream using the UTF-8 charset.
+        InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+        // Create temporary buffer to hold Stream data with specified max length.
+        char[] buffer = new char[maxLength];
+        // Populate temporary buffer with Stream data.
+        int numChars = 0;
+        int readSize = 0;
+        while (numChars < maxLength && readSize != -1) {
+            numChars += readSize;
+            int pct = (100 * numChars) / maxLength;
+            readSize = reader.read(buffer, numChars, buffer.length - numChars);
+        }
+        if (numChars != -1) {
+            // The stream was not empty.
+            // Create String that is actual length of response body if actual length was less than
+            // max length.
+            numChars = Math.min(numChars, maxLength);
+            result = new String(buffer, 0, numChars);
+        }
+        return result;
     }
 
     protected void onPostExecute(String result) {
