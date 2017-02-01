@@ -3,6 +3,10 @@ package moraes.danillo.teste2;
 import android.content.Context;
 import android.icu.text.DateFormat;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.NetworkOnMainThreadException;
 import android.os.StrictMode;
 import android.provider.Settings;
@@ -12,6 +16,9 @@ import android.widget.Toast;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,94 +33,80 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.security.AccessController.getContext;
 
-public class login_thread extends AsyncTask<String, String, String> {
+
+public class login_thread extends Thread {
+    String resp = "";
+    String mUrl;
+    String mLogin;
+    String mSenha;
+    Handler mHandler;
+
+    login_thread (String url, String login, String senha, Handler h) {
+
+        mUrl = url;
+        mLogin = login;
+        mSenha = senha;
+        mHandler = h;
+
+    }
 
     @Override
-    public String doInBackground(String... args ){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+    public void run() {
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
 
-        String url = args[0];
-        String login = args[1];
-        String senha = args[2];
-        String resp= "";
-        InputStream stream;
+        String error = "";
+        InputStream stream = null;
         BufferedReader reader;
         URL ulr;
         HttpURLConnection con;
 
         try {
-            ulr = new URL(url);
+            ulr = new URL(mUrl);
             con = (HttpURLConnection) ulr.openConnection();
-            con.addRequestProperty("login", "danillom");
-            con.addRequestProperty("senha", "zelda9891");
-            con.setRequestMethod("GET");
-            con.setDoInput(true);
+            con.setDoOutput(true);
+            con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+            con.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+            con.setRequestProperty("Accept-Language", "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4");
+            con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+            con.addRequestProperty("login", mLogin);
+            con.addRequestProperty("senha", mSenha);
 
-            con.connect();
-
-            int responcecode = con.getResponseCode();
-
-            if (responcecode != HttpURLConnection.HTTP_OK) {
-                return String.valueOf(responcecode);
+            if (con.getContentLength() > 0) {
+                stream = con.getInputStream();
+            } else {
+                resp = String.valueOf(con.getResponseCode());
             }
-
-            stream = con.getInputStream();
 
             if (stream != null) {
                 resp = readStream(stream, 1500);
             }
 
-        }catch (MalformedURLException e) {
-            getlog();
-            resp= e.getStackTrace().toString();
+        } catch (Exception e) {
             e.printStackTrace();
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-            resp = sw.toString();
-        }catch (NetworkOnMainThreadException e){
-            getlog();
-            resp= e.getStackTrace().toString();
-            e.printStackTrace();
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            resp = sw.toString();
-        }catch (Exception e){
-            getlog();
-            e.printStackTrace();
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            resp = sw.toString();
-        }
-        finally {
+            error = sw.toString();
 
-            return resp;
-        }
-    }
+        } finally {
 
-    public String getlog () {
-        StringBuilder log=new StringBuilder();
-        try {
-            java.lang.Process process = Runtime.getRuntime().exec("logcat -t 1000 -f /log.txt");
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
-
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                log.append(line);
+            if (error != "") {
+                try {
+                    writeFile(error, "error");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
+            Message msg = mHandler.obtainMessage();
+            Bundle b = new Bundle();
+            b.putInt("state", 1);
+            msg.setData(b);
+            mHandler.sendMessage(msg);
         }
-        catch (IOException e) {}
-
-        return  log.toString();
-
     }
 
     private String readStream(InputStream stream, int maxLength) throws IOException {
@@ -140,7 +133,30 @@ public class login_thread extends AsyncTask<String, String, String> {
         return result;
     }
 
-    protected void onPostExecute(String result) {
+    public String getResp() {
+        return resp;
+    }
+
+
+    public void writeFile(String resp, String fileName) throws IOException {
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File file = new File(path, fileName+".txt");
+        FileOutputStream strem = null;
+        try {
+            strem = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            strem.write(resp.getBytes());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+           strem.close();
+        }
 
     }
 }
