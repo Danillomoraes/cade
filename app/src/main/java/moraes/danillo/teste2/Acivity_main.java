@@ -151,10 +151,6 @@ public class Acivity_main extends AppCompatActivity  {
             }
         });
 
-        EditText error_edt = (EditText) findViewById(R.id.error_edt);
-        error_edt.setText(getIntent().getStringExtra("EXTRA_SESSION_ID"));
-
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -199,7 +195,7 @@ public class Acivity_main extends AppCompatActivity  {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), getIntent().getStringExtra("EXTRA_SESSION_ID"), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getIntent().getStringExtra("cod_user"), Toast.LENGTH_LONG).show();
                 colors(v);
             }
         });
@@ -479,8 +475,7 @@ public class Acivity_main extends AppCompatActivity  {
         int light_color;
         int dark_color;
 
-
-        /*float h[] = new float[3];
+        float h[] = new float[3];
 
         Color.colorToHSV(color, h);
 
@@ -492,10 +487,7 @@ public class Acivity_main extends AppCompatActivity  {
             dark_color = color;
             h[2] = h[2] + 0.1f;
             light_color = Color.HSVToColor(h);
-        }*/
-
-        light_color = color;
-        dark_color = getPalttecolor(color, 0.5f);
+        }
 
         toolbar.setBackgroundColor(light_color);
         status.setBackgroundColor(dark_color);

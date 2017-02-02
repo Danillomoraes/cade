@@ -13,6 +13,8 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -56,12 +58,14 @@ public class login_thread extends Thread {
     public void run() {
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         //StrictMode.setThreadPolicy(policy);
-
         String error = "";
         InputStream stream = null;
         BufferedReader reader;
         URL ulr;
         HttpURLConnection con;
+        Message msg = mHandler.obtainMessage();
+        Bundle b = new Bundle();
+        JSONObject json;
 
         try {
             ulr = new URL(mUrl);
@@ -82,6 +86,30 @@ public class login_thread extends Thread {
 
             if (stream != null) {
                 resp = readStream(stream, 1500);
+
+                if (resp != "[]") {
+
+                    json = new JSONObject(resp);
+
+                    String cod = json.getString("cod_user");
+                    String user = json.getString("login_user");
+
+                    if (cod == "0") {
+                        b.putInt("state", 2);
+                        msg.setData(b);
+                        mHandler.sendMessage(msg);
+                    }else{
+                        b.putInt("state", 1);
+                        b.putString("cod_user",cod);
+                        msg.setData(b);
+                        mHandler.sendMessage(msg);
+
+                    }
+                }else{
+                    b.putInt("state", 3);
+                    msg.setData(b);
+                    mHandler.sendMessage(msg);
+                }
             }
 
         } catch (Exception e) {
@@ -90,6 +118,9 @@ public class login_thread extends Thread {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             error = sw.toString();
+            b.putInt("state", 3);
+            msg.setData(b);
+            mHandler.sendMessage(msg);
 
         } finally {
 
@@ -100,12 +131,6 @@ public class login_thread extends Thread {
                     e.printStackTrace();
                 }
             }
-
-            Message msg = mHandler.obtainMessage();
-            Bundle b = new Bundle();
-            b.putInt("state", 1);
-            msg.setData(b);
-            mHandler.sendMessage(msg);
         }
     }
 

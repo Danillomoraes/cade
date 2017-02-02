@@ -278,11 +278,12 @@ public class Activity_login extends AppCompatActivity {
     }
 
     public void callactivity(final View v) throws IOException {
-
+        EditText tb_email = (EditText) findViewById(R.id.tb_email);
+        EditText tb_senha = (EditText) findViewById(R.id.tb_senha);
         final String url = "http://webservice_php-danillodan5243966.codeanyapp.com/server_rest.php";
-        final String login = "danillom";
-        final String senha = "zelda9891";
-        String resp = "";
+        final String login = tb_email.getText().toString();
+        final String senha = tb_senha.getText().toString();
+        //String resp = "";
 
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -291,7 +292,15 @@ public class Activity_login extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Bem vindo!", Toast.LENGTH_LONG);
                     toast.show();
                     Intent intent = new Intent(getApplicationContext(), Acivity_main.class);
+                    intent.putExtra("cod_user",msg.getData().getString("cod_user"));
                     startActivity(intent);
+                }
+                else if (state == 2){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Senha Incorreta!", Toast.LENGTH_LONG);
+                    toast.show();
+                } else if (state == 3) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario não Cadastrado!", Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         };
@@ -299,15 +308,14 @@ public class Activity_login extends AppCompatActivity {
         login_thread con = new login_thread(url, login, senha, handler);
         con.start();
 
-        resp = con.getResp();
-
-        writeFile(resp);
+        //resp = con.getResp();
+        //writeFile(resp);
 
         }
 
-    public void writeFile(String resp) throws IOException {
+    public void writeFile(String resp, String fileName) throws IOException {
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, "logcat.txt");
+        File file = new File(path, fileName+".txt");
         FileOutputStream strem = null;
         try {
             strem = new FileOutputStream(file);
