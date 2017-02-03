@@ -94,16 +94,15 @@ public class login_thread extends Thread {
                     String cod = json.getString("cod_user");
                     String user = json.getString("login_user");
 
-                    if (cod == "0") {
-                        b.putInt("state", 2);
-                        msg.setData(b);
-                        mHandler.sendMessage(msg);
-                    }else{
+                    if (!cod.equals("0")) {
                         b.putInt("state", 1);
                         b.putString("cod_user",cod);
                         msg.setData(b);
                         mHandler.sendMessage(msg);
-
+                    } else {
+                        b.putInt("state", 2);
+                        msg.setData(b);
+                        mHandler.sendMessage(msg);
                     }
                 }else{
                     b.putInt("state", 3);
@@ -161,7 +160,6 @@ public class login_thread extends Thread {
     public String getResp() {
         return resp;
     }
-
 
     public void writeFile(String resp, String fileName) throws IOException {
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);

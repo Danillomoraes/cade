@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Environment;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -42,18 +43,25 @@ import android.widget.Toast;
 //import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Acivity_main extends AppCompatActivity  {
     int i = 0;
     int o = 0;
+    int p = 0;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     public ImageView img_profile;
@@ -61,6 +69,7 @@ public class Acivity_main extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView navigate;
     public int[] back;
+    int color[][];
 
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     Bitmap bitm;
@@ -192,11 +201,46 @@ public class Acivity_main extends AppCompatActivity  {
 
 
         Button bt = (Button) findViewById(R.id.bt_vibrant);
+        Button bt_muted = (Button) findViewById(R.id.bt_muted);
+
+        bt_muted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    colorsSwatch(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    e.printStackTrace(pw);
+                    String error = sw.toString();
+                    try {
+                        writeFile(error, "errorcolorswatch");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), getIntent().getStringExtra("cod_user"), Toast.LENGTH_LONG).show();
-                colors(v);
+                try {
+                    colors(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    e.printStackTrace(pw);
+                    String error = sw.toString();
+                    try {
+                        writeFile(error, "errorcolors");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -304,9 +348,60 @@ public class Acivity_main extends AppCompatActivity  {
         return circleBitmap;
     }
 
-    public void colors(View v) {
+    public void colorsSwatch(View v) throws IOException {
+        try {
+            //Button bt = (Button) findViewById(R.id.bt_sera);
+            Button bt_muted = (Button) findViewById(R.id.bt_muted);
+            AppCompatButton bt_vibrant = (AppCompatButton) findViewById(R.id.bt_vibrant);
+            Button bt_vibrant_light = (Button) findViewById(R.id.bt_vibrant_light);
+            Button bt_vibrant_dar = (Button) findViewById(R.id.bt_vibrant_dark);
+            Button bt_muted_light = (Button) findViewById(R.id.bt_muted_light);
+            Button bt_muted_dark = (Button) findViewById(R.id.bt_muted_dark);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            try {
+
+                Bitmap myBitmap;
+                myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
+                ColorP colorP = new ColorP();
+                List<Palette.Swatch> list = colorP.getSwatch(myBitmap);
+                List<Button> listb = new ArrayList<>();
+
+                listb.add(bt_muted);
+                listb.add(bt_vibrant_light);
+                listb.add(bt_vibrant_dar);
+                listb.add(bt_vibrant);
+                listb.add(bt_muted_light);
+                listb.add(bt_muted_dark);
+
+
+            if(p>=list.size()-1){
+                p=0;
+            }
+
+            for (int o = 0; o>=5;o++) {
+                listb.get(o).getBackground().setColorFilter(list.get(p).getRgb(), PorterDuff.Mode.MULTIPLY);
+                p++;
+            }
+            }catch (Exception e){
+                e.printStackTrace();
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                String error = sw.toString();
+                writeFile(error, "errorcolorswatch");
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String error = sw.toString();
+            writeFile(error, "errorlog");
+        }
+    }
+
+    public void colors(View v) throws IOException {
         //Button bt = (Button) findViewById(R.id.bt_sera);
         CardView card = (CardView) findViewById(R.id.cardview);
         ImageView img_view = (ImageView) findViewById(R.id.img);
@@ -317,8 +412,6 @@ public class Acivity_main extends AppCompatActivity  {
         Button bt_muted_dark = (Button) findViewById(R.id.bt_muted_dark);
         Button bt_muted = (Button) findViewById(R.id.bt_muted);
 
-        Palette palette;
-        Bitmap myBitmap;
 
         if (Build.VERSION.SDK_INT >= 21) {
             i = ThreadLocalRandom.current().nextInt(0, 12 + 1);
@@ -335,41 +428,31 @@ public class Acivity_main extends AppCompatActivity  {
             o +=1;
         }
 
-
-
         change_background_view(back[i], img_view, card);
 
+        Bitmap myBitmap;
         myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
-        palette = Palette.from(myBitmap).generate();
-
-        int i_default = 0x000000;
-        int vibrant = palette.getVibrantColor(i_default);
-        int vibrantlight = palette.getLightVibrantColor(i_default);
-        int vibrantdark = palette.getDarkVibrantColor(i_default);
-        int muted = palette.getMutedColor(i_default);
-        int mutedlight = palette.getLightMutedColor(i_default);
-        int muteddark = palette.getDarkMutedColor(i_default);
-
+        ColorP colorP = new ColorP();
         int[] cor = new int[6];
 
-        cor[0] = vibrant;
-        cor[1] = vibrantlight;
-        cor[2] = vibrantdark;
-        cor[3] = muted;
-        cor[4] = mutedlight;
-        cor[5] = muteddark;
+        try {
+            cor = colorP.getBitmapPalette(myBitmap);
+        }catch (Exception e){
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String error = sw.toString();
+            writeFile(error, "errorlog");
+        }
+        setStatusAndActionBarColor(cor[3]);
 
-        setStatusAndActionBarColor(muted);
-
-        //bt.setBackgroundColor(cor[i]);
-        bt_vibrant.getBackground().setColorFilter(vibrant, PorterDuff.Mode.MULTIPLY);
-        bt_vibrant_dar.getBackground().setColorFilter(vibrantdark, PorterDuff.Mode.MULTIPLY);
-        bt_vibrant_light.getBackground().setColorFilter(vibrantlight, PorterDuff.Mode.MULTIPLY);
-        bt_muted.getBackground().setColorFilter(muted, PorterDuff.Mode.MULTIPLY);
-        bt_muted_dark.getBackground().setColorFilter(muteddark, PorterDuff.Mode.MULTIPLY);
-        bt_muted_light.getBackground().setColorFilter(mutedlight, PorterDuff.Mode.MULTIPLY);
-
-        //bt.setSupportBackgroundTintList(getResources().getColorStateList(R.color.blue_grey));
+        bt_vibrant.getBackground().setColorFilter(cor[0], PorterDuff.Mode.MULTIPLY);
+        bt_vibrant_dar.getBackground().setColorFilter(cor[2], PorterDuff.Mode.MULTIPLY);
+        bt_vibrant_light.getBackground().setColorFilter(cor[1], PorterDuff.Mode.MULTIPLY);
+        bt_muted.getBackground().setColorFilter(cor[3], PorterDuff.Mode.MULTIPLY);
+        bt_muted_dark.getBackground().setColorFilter(cor[5], PorterDuff.Mode.MULTIPLY);
+        bt_muted_light.getBackground().setColorFilter(cor[4], PorterDuff.Mode.MULTIPLY);
 
         i+=1;
     }
@@ -472,44 +555,18 @@ public class Acivity_main extends AppCompatActivity  {
     public void setStatusAndActionBarColor (int color) {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         View status = (View) findViewById(R.id.status);
-        int light_color;
-        int dark_color;
+        ColorP colorp = new ColorP(color);
 
-        float h[] = new float[3];
+        colorp.getDarkColor();
 
-        Color.colorToHSV(color, h);
-
-        if (h[2] >= 0.7f) {
-            light_color = color;
-            h[2] = h[2] - 0.1f;
-            dark_color = Color.HSVToColor(h);
-        } else {
-            dark_color = color;
-            h[2] = h[2] + 0.1f;
-            light_color = Color.HSVToColor(h);
-        }
-
-        toolbar.setBackgroundColor(light_color);
-        status.setBackgroundColor(dark_color);
+        toolbar.setBackgroundColor(colorp.colors[0]);
+        status.setBackgroundColor(colorp.colors[1]);
 
         if (Build.VERSION.SDK_INT >= 21) {
             //getWindow().setStatusBarColor(Color.TRANSPARENT);
             }else {
             //getWindow().getDecorView().setBackgroundColor(light_color);
             }
-    }
-
-    public int getPalttecolor (int color, float o) {
-        int new_color;
-        float h[] = new float [3];
-
-        Color.colorToHSV(color, h);
-
-        h[2] = o;
-
-        new_color = Color.HSVToColor(h);
-
-        return new_color;
     }
 
     private String makeRequest(String urlAddress) {
@@ -595,5 +652,25 @@ public class Acivity_main extends AppCompatActivity  {
 
         return out;
     }
+    public void writeFile(String resp, String fileName) throws IOException {
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File file = new File(path, fileName+".txt");
+        FileOutputStream strem = null;
+        try {
+            strem = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        try {
+
+            strem.write(resp.getBytes());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            strem.close();
+        }
+
+    }
 }

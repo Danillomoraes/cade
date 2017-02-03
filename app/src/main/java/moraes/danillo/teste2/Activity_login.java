@@ -287,20 +287,23 @@ public class Activity_login extends AppCompatActivity {
 
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
+                Toast toast;
                 int state = msg.getData().getInt("state");
-                if (state == 1){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Bem vindo!", Toast.LENGTH_LONG);
-                    toast.show();
-                    Intent intent = new Intent(getApplicationContext(), Acivity_main.class);
-                    intent.putExtra("cod_user",msg.getData().getString("cod_user"));
-                    startActivity(intent);
-                }
-                else if (state == 2){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Senha Incorreta!", Toast.LENGTH_LONG);
-                    toast.show();
-                } else if (state == 3) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuario não Cadastrado!", Toast.LENGTH_LONG);
-                    toast.show();
+                switch (state) {
+                    case 1:
+                        toast = Toast.makeText(getApplicationContext(), "Bem vindo!", Toast.LENGTH_LONG);
+                        toast.show();
+                        Intent intent = new Intent(getApplicationContext(), Acivity_main.class);
+                        intent.putExtra("cod_user",msg.getData().getString("cod_user"));
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        toast = Toast.makeText(getApplicationContext(), "Senha Incorreta!", Toast.LENGTH_LONG);
+                        toast.show();
+                        break;
+                    case 3:
+                        toast = Toast.makeText(getApplicationContext(), "Usuario não Cadastrado!", Toast.LENGTH_LONG);
+                        toast.show();
                 }
             }
         };
