@@ -94,9 +94,11 @@ public class Activity_login extends AppCompatActivity {
             //View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             //);
         } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
+
         setContentView(R.layout.activity_login);
 
         back = new int[13];
@@ -285,6 +287,8 @@ public class Activity_login extends AppCompatActivity {
         final String senha = tb_senha.getText().toString();
         //String resp = "";
 
+        try {
+
         final Handler handler = new Handler() {
             public void handleMessage(Message msg) {
                 Toast toast;
@@ -304,33 +308,37 @@ public class Activity_login extends AppCompatActivity {
                     case 3:
                         toast = Toast.makeText(getApplicationContext(), "Usuario não Cadastrado!", Toast.LENGTH_LONG);
                         toast.show();
+                        break;
                 }
             }
         };
 
-        login_thread con = new login_thread(url, login, senha, handler);
-        con.start();
 
+            login_thread con = new login_thread(url, login, senha, handler);
+            con.start();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String error = sw.toString();
+            writeFile(error, "error");
+        }
         //resp = con.getResp();
         //writeFile(resp);
-
         }
 
     public void writeFile(String resp, String fileName) throws IOException {
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, fileName+".txt");
         FileOutputStream strem = null;
         try {
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            File file = new File(path, fileName+".txt");
             strem = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-
             strem.write(resp.getBytes());
-
         } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "fudeo", Toast.LENGTH_LONG);
+            toast.show();
             e.printStackTrace();
         } finally {
             strem.close();

@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -97,91 +98,93 @@ public class Acivity_main extends AppCompatActivity  {
 
         setContentView(R.layout.activity_main);
 
-        navigate = (NavigationView) findViewById(R.id.nav_view);
+        try {
 
-        View h = navigate.getHeaderView(0);
+            navigate = (NavigationView) findViewById(R.id.nav_view);
 
-        img_profile = (ImageView) h.findViewById(R.id.img_foto);
-        img_capa = (ImageView) h.findViewById(R.id.img_back);
-        //View s = (View) h.findViewById(R.id.status_view);
+            View h = navigate.getHeaderView(0);
 
-        //s.setBackgroundColor(getResources().getColor(R.color.aplha_black));
-        bitm = BitmapFactory.decodeResource(getResources(), R.drawable.image_doge);
-        bit_capa =  BitmapFactory.decodeResource(getResources(), R.drawable.image_hobbit);
+            img_profile = (ImageView) h.findViewById(R.id.img_foto);
+            img_capa = (ImageView) h.findViewById(R.id.img_back);
+            //View s = (View) h.findViewById(R.id.status_view);
 
-
-        float x = 320f/(float) (bit_capa.getWidth()); //calculo para scale
-
-        bit = Bitmap.createScaledBitmap(bit_capa, (int)(bit_capa.getWidth()*x), (int) (bit_capa.getHeight()*x), true);
-
-        new_bitm = createRoundImage(bitm);
-        img_profile.setImageBitmap(new_bitm);
-        img_capa.setImageBitmap(bit);
-
-        navigate.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            //s.setBackgroundColor(getResources().getColor(R.color.aplha_black));
+            bitm = BitmapFactory.decodeResource(getResources(), R.drawable.image_doge);
+            bit_capa = BitmapFactory.decodeResource(getResources(), R.drawable.image_hobbit);
 
 
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if(menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
+            float x = 320f / (float) (bit_capa.getWidth()); //calculo para scale
 
-                //Closing drawer on item click
-                mDrawerLayout.closeDrawers();
+            bit = Bitmap.createScaledBitmap(bit_capa, (int) (bit_capa.getWidth() * x), (int) (bit_capa.getHeight() * x), true);
 
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()){
+            new_bitm = createRoundImage(bitm);
+            img_profile.setImageBitmap(new_bitm);
+            img_capa.setImageBitmap(bit);
 
-                    // For rest of the options we just show a toast on click
+            navigate.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
-                    case R.id.item_home:
-                        Toast.makeText(getApplicationContext(),"Home",Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.item_chat:
-                        Toast.makeText(getApplicationContext(),"Conversas",Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.item_Mapas:
-                        Toast.makeText(getApplicationContext(),"Mapas", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.item_profile:
-                        Toast.makeText(getApplicationContext(),"Profile Page",Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.item_settings:
-                        Toast.makeText(getApplicationContext(),"Configurações",Toast.LENGTH_SHORT).show();
-                        return true;
-                    default:
-                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
-                        return true;
+                // This method will trigger on item Click of navigation menu
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
 
+
+                    //Checking if the item is in checked state or not, if not make it in checked state
+                    if (menuItem.isChecked()) menuItem.setChecked(false);
+                    else menuItem.setChecked(true);
+
+                    //Closing drawer on item click
+                    mDrawerLayout.closeDrawers();
+
+                    //Check to see which item was being clicked and perform appropriate action
+                    switch (menuItem.getItemId()) {
+
+                        // For rest of the options we just show a toast on click
+
+                        case R.id.item_home:
+                            Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.item_chat:
+                            Toast.makeText(getApplicationContext(), "Conversas", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.item_Mapas:
+                            Toast.makeText(getApplicationContext(), "Mapas", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.item_profile:
+                            Toast.makeText(getApplicationContext(), "Profile Page", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.item_settings:
+                            Toast.makeText(getApplicationContext(), "Configurações", Toast.LENGTH_SHORT).show();
+                            return true;
+                        default:
+                            Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
+                            return true;
+
+                    }
                 }
-            }
-        });
+            });
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        mDrawerToggle = new ActionBarDrawerToggle (this, mDrawerLayout, toolbar, R.string.app_name, R.string.hello_world) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                //getActionBar().setTitle("Cade meu Livro?");
-                //vamos ver
-            }
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.hello_world) {
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                    //getActionBar().setTitle("Cade meu Livro?");
+                    //vamos ver
+                }
 
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle("Não sei");
-            }
-        };
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    //getActionBar().setTitle("Não sei");
+                }
+            };
 
-        mDrawerToggle.syncState();
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_48dp);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+            mDrawerToggle.syncState();
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_48dp);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
 
         /*
         mNavItems.add(new NavItem("Home","Pagina Inicial", R.drawable.ic_home_black_18dp));
@@ -200,112 +203,110 @@ public class Acivity_main extends AppCompatActivity  {
         */
 
 
-        Button bt = (Button) findViewById(R.id.bt_vibrant);
-        Button bt_muted = (Button) findViewById(R.id.bt_muted);
+            Button bt = (Button) findViewById(R.id.bt_vibrant);
+            Button bt_muted = (Button) findViewById(R.id.bt_muted);
 
-        bt_muted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    colorsSwatch(v);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    e.printStackTrace(pw);
-                    String error = sw.toString();
+            bt_muted.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     try {
-                        writeFile(error, "errorcolorswatch");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                        colorsSwatch(v);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        StringWriter sw = new StringWriter();
+                        PrintWriter pw = new PrintWriter(sw);
+                        e.printStackTrace(pw);
+                        String error = sw.toString();
+                        try {
+                            writeFile(error, "errorcolorswatch");
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), getIntent().getStringExtra("cod_user"), Toast.LENGTH_LONG).show();
-                try {
-                    colors(v);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    e.printStackTrace(pw);
-                    String error = sw.toString();
+            bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), getIntent().getStringExtra("cod_user"), Toast.LENGTH_LONG).show();
                     try {
-                        writeFile(error, "errorcolors");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                        colors(v);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        StringWriter sw = new StringWriter();
+                        PrintWriter pw = new PrintWriter(sw);
+                        e.printStackTrace(pw);
+                        String error = sw.toString();
+                        try {
+                            writeFile(error, "errorcolors");
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        back = new int[13];
+            back = new int[13];
 
-        back[0] = R.drawable.image_book_background;
-        back[1] = R.drawable.image_books;
-        back[2] = R.drawable.image_books2;
-        back[3] = R.drawable.image_books3;
-        back[4] = R.drawable.image_book4;
-        back[5] = R.drawable.image_book5;
-        back[6] = R.drawable.image_senhor;
-        back[7] = R.drawable.image_apocalispe;
-        back[8] = R.drawable.image_codigo_da_vinci;
-        back[9] = R.drawable.image_excalibur;
-        back[10] = R.drawable.image_martin;
-        back[11] = R.drawable.image_retorno_do_rei;
-        back[12] = R.drawable.image_hobbit;
+            back[0] = R.drawable.image_book_background;
+            back[1] = R.drawable.image_books;
+            back[2] = R.drawable.image_books2;
+            back[3] = R.drawable.image_books3;
+            back[4] = R.drawable.image_book4;
+            back[5] = R.drawable.image_book5;
+            back[6] = R.drawable.image_senhor;
+            back[7] = R.drawable.image_apocalispe;
+            back[8] = R.drawable.image_codigo_da_vinci;
+            back[9] = R.drawable.image_excalibur;
+            back[10] = R.drawable.image_martin;
+            back[11] = R.drawable.image_retorno_do_rei;
+            back[12] = R.drawable.image_hobbit;
 
-        ImageView img_categoria1 = (ImageView) findViewById(R.id.img_categoria1);
-        ImageView img_categoria2 = (ImageView) findViewById(R.id.img_categoria2);
-        ImageView img_categoria3 = (ImageView) findViewById(R.id.img_categoria3);
+            ImageView img_categoria1 = (ImageView) findViewById(R.id.img_categoria1);
+            ImageView img_categoria2 = (ImageView) findViewById(R.id.img_categoria2);
+            ImageView img_categoria3 = (ImageView) findViewById(R.id.img_categoria3);
 
-        //try {
+            //try {
 
             img_categoria1.setImageBitmap(getBlur(getSizedBitmap(back[11], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)), 15));
             img_categoria2.setImageBitmap(getBlur(getSizedBitmap(back[7], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)), 15));
-            img_categoria3.setImageBitmap(getBlur(getSizedBitmap(back[9], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)),15));
+            img_categoria3.setImageBitmap(getBlur(getSizedBitmap(back[9], dpToPx(225), (int) (getApplicationContext().getResources().getDisplayMetrics().widthPixels)), 15));
 
-        //} catch (Exception e) {
+            //} catch (Exception e) {
             //getlog();
 
             //mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        //mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item_list, mPlanetTitles));
+            //mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item_list, mPlanetTitles));
 
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-
-        // create our manager instance after the content view is set
-        //SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        //tintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        //tintManager.setNavigationBarTintEnabled(true);
-        // set a custom navigation bar resource
-        //tintManager.setTintColor(R.color.brown_900);
-        //tintManager.setStatusBarTintResource(R.color.statusbar_bg);
+            //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
+            // create our manager instance after the content view is set
+            //SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            // enable status bar tint
+            //tintManager.setStatusBarTintEnabled(true);
+            // enable navigation bar tint
+            //tintManager.setNavigationBarTintEnabled(true);
+            // set a custom navigation bar resource
+            //tintManager.setTintColor(R.color.brown_900);
+            //tintManager.setStatusBarTintResource(R.color.statusbar_bg);
 
-        //Window window = LoginActivity.getWindow();
-        //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        //window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //window.setStatusBarColor(ContextCompat.getColor(LoginActivity , R.color.brown_900));
-        //toolbar.setBackgroundColor(000000);
+
+            //Window window = LoginActivity.getWindow();
+            //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //window.setStatusBarColor(ContextCompat.getColor(LoginActivity , R.color.brown_900));
+            //toolbar.setBackgroundColor(000000);
 
 
+            //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            //StrictMode.setThreadPolicy(policy);
 
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
+            //String response = makeRequest("http://jsonplaceholder.typicode.com/");
 
-        //String response = makeRequest("http://jsonplaceholder.typicode.com/");
-
-        //try{
+            //try{
             //JSONObject json = new JSONObject(response);
             //String name = json.getString("title");
             //String phone = json.getString("phone");
@@ -319,12 +320,23 @@ public class Acivity_main extends AppCompatActivity  {
             //cityText.setText(getString(R.string.city_label, city));
             //likesText.setText(getString(R.string.likes_label, likes));
 
-        //}
-        //catch (JSONException e){
+            //}
+            //catch (JSONException e){
             //e.printStackTrace();
-        //}
+            //}
 
-
+        }catch (Exception e){
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String error = sw.toString();
+            try {
+                writeFile(error, "error");
+            }catch (Exception x){
+                x.printStackTrace();
+            }
+        }
     }
 
     private void onStart (View v) {
@@ -349,6 +361,39 @@ public class Acivity_main extends AppCompatActivity  {
     }
 
     public void colorsSwatch(View v) throws IOException {
+
+        try {
+            Bitmap myBitmap;
+            myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
+            ColorP colorP = new ColorP();
+            List<Palette.Swatch> list = colorP.getSwatch(myBitmap);
+            List<String> cores = new ArrayList<String>(); // new ArrayList();
+            String [] value = new String[] {"shiuahsdiuahsdiuhasd", "iaushdiaushdiaushduiashd", "ioauscaksbclajshbcajlsbhc"};
+            ListView lista = (ListView) findViewById(R.id.lt_swatch);
+
+            for (int o = 0; o >= list.size() - 1; o++) {
+
+                cores.add("iasuhdaiusdh"+o);  //String.valueOf(list.get(o).getRgb()));
+
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, value);
+            lista.setAdapter(adapter);
+
+            for (int o = 0; o >= lista.getChildCount() - 1; o++) {
+                //getViewByPosition(o,lista).getBackground().setColorFilter(cores.get(o), PorterDuff.Mode.MULTIPLY);
+            }
+        }catch (Exception e) {
+
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String error = sw.toString();
+            writeFile(error, "errorcolorswatch");
+
+        }
+/*
         try {
             //Button bt = (Button) findViewById(R.id.bt_sera);
             Button bt_muted = (Button) findViewById(R.id.bt_muted);
@@ -398,6 +443,19 @@ public class Acivity_main extends AppCompatActivity  {
             e.printStackTrace(pw);
             String error = sw.toString();
             writeFile(error, "errorlog");
+        } */
+
+    }
+
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
         }
     }
 
