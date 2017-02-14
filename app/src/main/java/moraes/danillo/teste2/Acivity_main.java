@@ -52,9 +52,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -360,6 +363,19 @@ public class Acivity_main extends AppCompatActivity  {
         return circleBitmap;
     }
 
+    public int getAbstractColor (List<Palette.Swatch> colors, int color) {
+        int absColor =0;
+        ArrayList<Integer> mColors = new ArrayList<Integer>();
+
+        for (int o =0; o<=(colors.size()-1); o++) {
+            mColors.add(colors.get(o).getRgb());
+        }
+
+
+
+        return absColor;
+    }
+
     public void colorsSwatch(View v) throws IOException {
 
         try {
@@ -367,22 +383,21 @@ public class Acivity_main extends AppCompatActivity  {
             myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
             ColorP colorP = new ColorP();
             List<Palette.Swatch> list = colorP.getSwatch(myBitmap);
-            List<String> cores = new ArrayList<String>(); // new ArrayList();
-            String [] value = new String[] {"shiuahsdiuahsdiuhasd", "iaushdiaushdiaushduiashd", "ioauscaksbclajshbcajlsbhc"};
+            ArrayList<Integer> cores = new ArrayList<Integer>(); // new ArrayList();
+
             ListView lista = (ListView) findViewById(R.id.lt_swatch);
+            Toast toast = Toast.makeText(this, String.valueOf(list.size()), Toast.LENGTH_SHORT);
+            toast.show();
 
-            for (int o = 0; o >= list.size() - 1; o++) {
-
-                cores.add("iasuhdaiusdh"+o);  //String.valueOf(list.get(o).getRgb()));
-
+            for (int o = 0; o <= (list.size()-1); o++) {
+                cores.add(list.get(o).getRgb()); //String.valueOf(list.get(o).getRgb()));
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, value);
+            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.adapter_item_list, cores);
+            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.adapter_item_list, valuel);
+            CorSwatch adapter = new CorSwatch(this, cores);
             lista.setAdapter(adapter);
 
-            for (int o = 0; o >= lista.getChildCount() - 1; o++) {
-                //getViewByPosition(o,lista).getBackground().setColorFilter(cores.get(o), PorterDuff.Mode.MULTIPLY);
-            }
         }catch (Exception e) {
 
             e.printStackTrace();
@@ -393,58 +408,6 @@ public class Acivity_main extends AppCompatActivity  {
             writeFile(error, "errorcolorswatch");
 
         }
-/*
-        try {
-            //Button bt = (Button) findViewById(R.id.bt_sera);
-            Button bt_muted = (Button) findViewById(R.id.bt_muted);
-            AppCompatButton bt_vibrant = (AppCompatButton) findViewById(R.id.bt_vibrant);
-            Button bt_vibrant_light = (Button) findViewById(R.id.bt_vibrant_light);
-            Button bt_vibrant_dar = (Button) findViewById(R.id.bt_vibrant_dark);
-            Button bt_muted_light = (Button) findViewById(R.id.bt_muted_light);
-            Button bt_muted_dark = (Button) findViewById(R.id.bt_muted_dark);
-
-            try {
-
-                Bitmap myBitmap;
-                myBitmap = BitmapFactory.decodeResource(getResources(), back[i]);
-                ColorP colorP = new ColorP();
-                List<Palette.Swatch> list = colorP.getSwatch(myBitmap);
-                List<Button> listb = new ArrayList<>();
-
-                listb.add(bt_muted);
-                listb.add(bt_vibrant_light);
-                listb.add(bt_vibrant_dar);
-                listb.add(bt_vibrant);
-                listb.add(bt_muted_light);
-                listb.add(bt_muted_dark);
-
-
-            if(p>=list.size()-1){
-                p=0;
-            }
-
-            for (int o = 0; o>=5;o++) {
-                listb.get(o).getBackground().setColorFilter(list.get(p).getRgb(), PorterDuff.Mode.MULTIPLY);
-                p++;
-            }
-            }catch (Exception e){
-                e.printStackTrace();
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                String error = sw.toString();
-                writeFile(error, "errorcolorswatch");
-            }
-
-        }catch (Exception e) {
-            e.printStackTrace();
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String error = sw.toString();
-            writeFile(error, "errorlog");
-        } */
-
     }
 
     public View getViewByPosition(int pos, ListView listView) {
@@ -512,7 +475,9 @@ public class Acivity_main extends AppCompatActivity  {
         bt_muted_dark.getBackground().setColorFilter(cor[5], PorterDuff.Mode.MULTIPLY);
         bt_muted_light.getBackground().setColorFilter(cor[4], PorterDuff.Mode.MULTIPLY);
 
-        i+=1;
+        if (Build.VERSION.SDK_INT < 21) {
+            i += 1;
+        }
     }
 
     private int dpToPx(int dp) {

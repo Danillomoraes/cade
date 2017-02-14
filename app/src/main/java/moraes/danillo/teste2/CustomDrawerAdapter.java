@@ -1,14 +1,11 @@
 package moraes.danillo.teste2;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,18 +44,18 @@ class DrawerListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.drawer_item_list, null);
+            view = inflater.inflate(R.layout.adapter_item_list, null);
         }
         else {
             view = convertView;
         }
 
         TextView titleView = (TextView) view.findViewById(R.id.title);
-        TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
+       // TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
         ImageView iconView = (ImageView) view.findViewById(R.id.icon);
 
         titleView.setText( mNavItems.get(position).mTitle );
-        subtitleView.setText( mNavItems.get(position).mSubtitle );
+       // subtitleView.setText( mNavItems.get(position).mSubtitle );
         iconView.setImageResource(mNavItems.get(position).mIcon);
 
         return view;
